@@ -7,15 +7,7 @@ import java.util.ArrayList;
  */
 public class ResultListModel {
     private ArrayList<ResultModel> results;
-    private String pageno;
-
-    public String getPageno() {
-        return pageno;
-    }
-
-    public void setPageno(String pageno) {
-        this.pageno = pageno;
-    }
+    private String page;
 
 
     public ArrayList<ResultModel> getResults() {
@@ -24,5 +16,13 @@ public class ResultListModel {
 
     public void setResults(ArrayList<ResultModel> results) {
         this.results = results;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 }
