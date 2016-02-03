@@ -4,6 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_size">20sp</dimen>
-    <dimen name="title_size">60sp</dimen>
-    <dimen name="poster_padding">10dp</dimen>
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="poster_padding">4dp</dimen>
 </resources>

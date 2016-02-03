@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ladwa.aditya.popularmovies.model.ResultModel;
 
 import butterknife.Bind;
@@ -25,6 +26,12 @@ public class MovieDetailActivityFragment extends Fragment {
     TextView tvTitle;
     @Bind(R.id.imageposter)
     ImageView imgPoster;
+    @Bind(R.id.releasedate)
+    TextView tvReleaseDate;
+    @Bind(R.id.rating)
+    TextView tvRating;
+    @Bind(R.id.plot)
+    TextView tvPlot;
 
     public MovieDetailActivityFragment() {
     }
@@ -44,7 +51,11 @@ public class MovieDetailActivityFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         ResultModel model = (ResultModel) EventBus.getDefault().removeStickyEvent(ResultModel.class);
-        tvTitle.setText(model.getTitle());
+        tvTitle.setText(model.getOriginalTitle());
+        tvReleaseDate.setText(model.getReleaseDate());
+        tvRating.setText(model.getRating());
+        tvPlot.setText(model.getPlot());
+        Glide.with(this).load(Utility.URL_IMAGE_BASE + model.getPosterUrl()).crossFade().fitCenter().into(imgPoster);
 
         return view;
     }
