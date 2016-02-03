@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -45,6 +46,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'io.reactivex:rxandroid:1.0.1'
 
-    //Parceler
-    compile 'org.parceler:parceler-api:1.0.4'
+    //Event Bus
+    compile 'de.greenrobot:eventbus:2.4.0'
+
 }

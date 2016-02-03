@@ -3,6 +3,7 @@ package com.ladwa.aditya.popularmovies.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Aditya on 03-Feb-16.
@@ -62,9 +64,10 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(mContext, "Clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Clicked " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext, MovieDetailActivity.class);
-
+            EventBus.getDefault().postSticky(mresultListModel.get(getAdapterPosition()));
+            Log.d("Clicked ", mresultListModel.get(getAdapterPosition()).getTitle());
             mContext.startActivity(intent);
         }
     }

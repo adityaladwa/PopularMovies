@@ -2,13 +2,11 @@ package com.ladwa.aditya.popularmovies.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 /**
  * Created by Aditya on 03-Feb-16.
  */
 
-@Parcel
+
 public class ResultModel {
 
     private String title;
