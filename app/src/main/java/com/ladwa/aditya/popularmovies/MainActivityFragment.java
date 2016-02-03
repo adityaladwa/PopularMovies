@@ -54,8 +54,6 @@ public class MainActivityFragment extends Fragment {
         mRecyclerView.setAdapter(moviesAdapter);
 
 
-        // Glide.with(this).load("http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-Images.jpg").into(mimageView);
-
         return view;
     }
 }
