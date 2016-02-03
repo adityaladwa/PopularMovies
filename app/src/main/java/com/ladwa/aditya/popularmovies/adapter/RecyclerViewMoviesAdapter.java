@@ -1,13 +1,19 @@
 package com.ladwa.aditya.popularmovies.adapter;
 
+import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.ladwa.aditya.popularmovies.R;
+import com.ladwa.aditya.popularmovies.model.MoviePosterModel;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,7 +23,12 @@ import butterknife.ButterKnife;
  */
 public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerViewMoviesAdapter.MyViewHolder> {
 
-    public RecyclerViewMoviesAdapter() {
+    private ArrayList<MoviePosterModel> mModelurl;
+    private Context mContext;
+
+    public RecyclerViewMoviesAdapter(Context context, ArrayList<MoviePosterModel> model) {
+        this.mModelurl = model;
+        mContext = context;
     }
 
     @Override
@@ -28,17 +39,18 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
+        Glide.with(mContext).load(mModelurl.get(0).getImageUrl()).into(holder.imageView);
+        Log.d("onBindViewHolder", "called-" + mModelurl.get(0).getImageUrl());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mModelurl.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.imageview_poster)
-        private ImageView imageView;
+        ImageView imageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);

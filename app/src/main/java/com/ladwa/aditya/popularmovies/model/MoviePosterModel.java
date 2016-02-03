@@ -8,9 +8,6 @@ import android.widget.ImageView;
 public class MoviePosterModel {
     private String imageUrl;
 
-    public MoviePosterModel(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public String getImageUrl() {
         return imageUrl;

@@ -2,6 +2,7 @@ package com.ladwa.aditya.popularmovies;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,14 +25,11 @@ import butterknife.ButterKnife;
  */
 public class MainActivityFragment extends Fragment {
 
-    @Bind(R.id.imageview_poster)
-    private ImageView mimageView;
-
     @Bind(R.id.recycler_view_movie)
-    private RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
 
-    private ArrayList<MoviePosterModel> mPosterList;
-    private RecyclerView.LayoutManager mlayoutManager;
+    private ArrayList<MoviePosterModel> mPosterList = null;
+    private GridLayoutManager mlayoutManager;
     private RecyclerViewMoviesAdapter moviesAdapter;
 
     public MainActivityFragment() {
@@ -44,17 +42,19 @@ public class MainActivityFragment extends Fragment {
         ButterKnife.bind(this, view);
         Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
 
+        MoviePosterModel moviePosterModel = new MoviePosterModel();
+        moviePosterModel.setImageUrl("http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-Images.jpg");
+        mPosterList = new ArrayList<>();
+        mPosterList.add(moviePosterModel);
 
-        mPosterList.add(new MoviePosterModel());
-
-        mlayoutManager = new LinearLayoutManager(getActivity());
+        mlayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mlayoutManager);
-        moviesAdapter = new RecyclerViewMoviesAdapter();
+        moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList);
         moviesAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(moviesAdapter);
 
 
-        Glide.with(this).load("http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-Images.jpg").into(mimageView);
+        // Glide.with(this).load("http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-Images.jpg").into(mimageView);
 
         return view;
     }
