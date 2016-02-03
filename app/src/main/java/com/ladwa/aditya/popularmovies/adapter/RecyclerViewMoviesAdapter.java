@@ -2,6 +2,7 @@ package com.ladwa.aditya.popularmovies.adapter;
 
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,9 +17,13 @@ import butterknife.ButterKnife;
  */
 public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerViewMoviesAdapter.MyViewHolder> {
 
+    public RecyclerViewMoviesAdapter() {
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -35,10 +40,9 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
         @Bind(R.id.imageview_poster)
         private ImageView imageView;
 
-
         public MyViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
