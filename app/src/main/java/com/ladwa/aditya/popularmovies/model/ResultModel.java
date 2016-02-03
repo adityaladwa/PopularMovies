@@ -6,7 +6,7 @@ package com.ladwa.aditya.popularmovies.model;
 public class ResultModel {
 
     private String title;
-    private String posterUrl;
+    private String poster_path;
 
     public String getTitle() {
         return title;
@@ -16,11 +16,11 @@ public class ResultModel {
         this.title = title;
     }
 
-    public String getPosterUrl() {
-        return posterUrl;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 }

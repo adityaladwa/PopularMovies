@@ -39,9 +39,7 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Glide.with(mContext).load(mModelurl.get(0).getImageUrl()).into(holder.imageView);
-       // Glide.with(this).load("http://www.planwallpaper.com/static/images/Winter-Tiger-Wild-Cat-Images.jpg").into(mimageView);
-        Log.d("onBindViewHolder", "called-" + mModelurl.get(0).getImageUrl());
+        Glide.with(mContext).load(mModelurl.get(position).getImageUrl()).fitCenter().crossFade().into(holder.imageView);
     }
 
     @Override
