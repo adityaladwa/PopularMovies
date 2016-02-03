@@ -2,10 +2,15 @@ package com.ladwa.aditya.popularmovies;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -38,12 +43,21 @@ public class MainActivityFragment extends Fragment {
     private RecyclerViewMoviesAdapter moviesAdapter;
     private MovieApi movieApi;
     private Subscription movieSubscription;
+    private ActionBar mActionBar;
     private static final String URL_IMAGE_BASE = "http://image.tmdb.org/t/p/w185/";
 
     private static final String SORT_POPULAR_DESC = "popularity.desc";
+    private static final String SORT_RATING_DESC = "vote_average.desc";
 
 
     public MainActivityFragment() {
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+        mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
 
     @Override
@@ -59,11 +73,17 @@ public class MainActivityFragment extends Fragment {
 
         mlayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mlayoutManager);
-
-
         movieApi = ServiceGenerator.createService(MovieApi.class);
 
-        movieSubscription = movieApi.lodeMoviesRx(SORT_POPULAR_DESC, getString(R.string.api_key))
+        callMovieApi(SORT_POPULAR_DESC);
+
+        return view;
+    }
+
+    private void callMovieApi(String sort) {
+
+        mPosterList.removeAll(mPosterList);
+        movieSubscription = movieApi.lodeMoviesRx(sort, getString(R.string.api_key))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -85,17 +105,40 @@ public class MainActivityFragment extends Fragment {
                     public void onNext(ResultListModel resultListModel) {
 
                         for (int i = 0; i < resultListModel.getResults().size(); i++) {
-                            String url = URL_IMAGE_BASE + resultListModel.getResults().get(i).getPoster_path();
+                            String url = URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl();
                             MoviePosterModel moviePosterModel = new MoviePosterModel(url);
                             mPosterList.add(moviePosterModel);
-                            Log.d(TAG, URL_IMAGE_BASE + resultListModel.getResults().get(i).getPoster_path());
+                            Log.d(TAG, URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl());
 
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_sort_popular:
+                callMovieApi(SORT_POPULAR_DESC);
+                mActionBar.setTitle(getString(R.string.app_name));
+                break;
+            case R.id.action_sort_rated:
+                callMovieApi(SORT_RATING_DESC);
+                mActionBar.setTitle(getString(R.string.top_rated_movies));
+                break;
+        }
 
 
-        return view;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
