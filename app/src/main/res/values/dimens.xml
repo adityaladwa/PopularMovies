@@ -3,7 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_size">20sp</dimen>
-    <dimen name="title_size">20sp</dimen>
-    <dimen name="poster_padding">4dp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="title_size">30sp</dimen>
+    <dimen name="poster_padding">2dp</dimen>
+    <dimen name="plot_top_margin">5dp</dimen>
 </resources>

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ladwa.aditya.popularmovies.MovieDetailActivity;
@@ -45,6 +44,7 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
         Glide.with(mContext).load(url).fitCenter().crossFade().into(holder.imageView);
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(mContext, "Clicked " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(mContext, "Clicked " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext, MovieDetailActivity.class);
             EventBus.getDefault().postSticky(mresultListModel.get(getAdapterPosition()));
             Log.d("Clicked ", mresultListModel.get(getAdapterPosition()).getTitle());

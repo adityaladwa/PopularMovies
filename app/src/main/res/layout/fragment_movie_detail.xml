@@ -10,11 +10,12 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:elevation="5dp"
             android:id="@+id/movietitle"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@color/colorAccent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="Title"
             android:textSize="@dimen/title_size" />
 
@@ -61,7 +62,8 @@
             android:id="@+id/plot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lnLayout" />
+            android:layout_below="@id/lnLayout"
+            android:layout_marginTop="@dimen/plot_top_margin" />
 
     </RelativeLayout>
 
