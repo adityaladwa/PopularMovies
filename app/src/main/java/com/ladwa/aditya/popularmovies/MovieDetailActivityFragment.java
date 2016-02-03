@@ -52,8 +52,8 @@ public class MovieDetailActivityFragment extends Fragment {
 
         ResultModel model = (ResultModel) EventBus.getDefault().removeStickyEvent(ResultModel.class);
         tvTitle.setText(model.getOriginalTitle());
-        tvReleaseDate.setText("Release Date" + "\n" + model.getReleaseDate());
-        tvRating.setText("Rating" + "\n" + model.getRating());
+        tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
+        tvRating.setText(String.format(getString(R.string.rating), model.getRating()));
         tvPlot.setText(model.getPlot());
         Glide.with(this).load(Utility.URL_IMAGE_BASE + model.getPosterUrl()).crossFade().fitCenter().into(imgPoster);
 
