@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import com.ladwa.aditya.popularmovies.adapter.RecyclerViewMoviesAdapter;
 import com.ladwa.aditya.popularmovies.api.MovieApi;
 import com.ladwa.aditya.popularmovies.api.ServiceGenerator;
-import com.ladwa.aditya.popularmovies.model.MoviePosterModel;
 import com.ladwa.aditya.popularmovies.model.ResultListModel;
+import com.ladwa.aditya.popularmovies.model.ResultModel;
 
 import java.util.ArrayList;
 
@@ -38,16 +38,12 @@ public class MainActivityFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     private String TAG = MainActivityFragment.class.getSimpleName();
-    private ArrayList<MoviePosterModel> mPosterList = null;
+    private ArrayList<ResultModel> mPosterList;
     private GridLayoutManager mlayoutManager;
     private RecyclerViewMoviesAdapter moviesAdapter;
     private MovieApi movieApi;
     private Subscription movieSubscription;
     private ActionBar mActionBar;
-    private static final String URL_IMAGE_BASE = "http://image.tmdb.org/t/p/w185/";
-
-    private static final String SORT_POPULAR_DESC = "popularity.desc";
-    private static final String SORT_RATING_DESC = "vote_average.desc";
 
 
     public MainActivityFragment() {
@@ -76,7 +72,7 @@ public class MainActivityFragment extends Fragment {
         movieApi = ServiceGenerator.createService(MovieApi.class);
 
 
-        callMovieApi(SORT_POPULAR_DESC);
+        callMovieApi(Utility.SORT_POPULAR_DESC);
 
 
         return view;
@@ -107,10 +103,8 @@ public class MainActivityFragment extends Fragment {
                     public void onNext(ResultListModel resultListModel) {
 
                         for (int i = 0; i < resultListModel.getResults().size(); i++) {
-                            String url = URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl();
-                            MoviePosterModel moviePosterModel = new MoviePosterModel(url);
-                            mPosterList.add(moviePosterModel);
-                            Log.d(TAG, URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl());
+                            mPosterList.add(resultListModel.getResults().get(i));
+                            Log.d(TAG, Utility.URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl());
 
                         }
                     }
@@ -130,11 +124,11 @@ public class MainActivityFragment extends Fragment {
 
         switch (id) {
             case R.id.action_sort_popular:
-                callMovieApi(SORT_POPULAR_DESC);
+                callMovieApi(Utility.SORT_POPULAR_DESC);
                 mActionBar.setTitle(getString(R.string.app_name));
                 break;
             case R.id.action_sort_rated:
-                callMovieApi(SORT_RATING_DESC);
+                callMovieApi(Utility.SORT_RATING_DESC);
                 mActionBar.setTitle(getString(R.string.top_rated_movies));
                 break;
         }

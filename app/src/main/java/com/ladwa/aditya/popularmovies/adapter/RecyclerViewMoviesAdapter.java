@@ -2,7 +2,6 @@ package com.ladwa.aditya.popularmovies.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ladwa.aditya.popularmovies.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.model.MoviePosterModel;
+import com.ladwa.aditya.popularmovies.Utility;
 import com.ladwa.aditya.popularmovies.model.ResultModel;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -28,11 +25,11 @@ import butterknife.ButterKnife;
  */
 public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerViewMoviesAdapter.MyViewHolder> {
 
-    private ArrayList<MoviePosterModel> mModelurl;
+    private ArrayList<ResultModel> mresultListModel;
     private Context mContext;
 
-    public RecyclerViewMoviesAdapter(Context context, ArrayList<MoviePosterModel> model) {
-        this.mModelurl = model;
+    public RecyclerViewMoviesAdapter(Context context, ArrayList<ResultModel> model) {
+        this.mresultListModel = model;
         mContext = context;
     }
 
@@ -44,12 +41,13 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Glide.with(mContext).load(mModelurl.get(position).getImageUrl()).fitCenter().crossFade().into(holder.imageView);
+        String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
+        Glide.with(mContext).load(url).fitCenter().crossFade().into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return mModelurl.size();
+        return mresultListModel.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
