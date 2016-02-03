@@ -1,7 +1,5 @@
 package com.ladwa.aditya.popularmovies.model;
 
-import android.widget.ImageView;
-
 /**
  * Created by Aditya on 03-Feb-16.
  */

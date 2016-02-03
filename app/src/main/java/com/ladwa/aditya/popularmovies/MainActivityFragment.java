@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ladwa.aditya.popularmovies.adapter.RecyclerViewMoviesAdapter;
 import com.ladwa.aditya.popularmovies.api.MovieApi;
@@ -32,7 +33,7 @@ import rx.schedulers.Schedulers;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment  {
 
     @Bind(R.id.recycler_view_movie)
     RecyclerView mRecyclerView;
@@ -76,6 +77,7 @@ public class MainActivityFragment extends Fragment {
         movieApi = ServiceGenerator.createService(MovieApi.class);
 
         callMovieApi(SORT_POPULAR_DESC);
+
 
         return view;
     }
