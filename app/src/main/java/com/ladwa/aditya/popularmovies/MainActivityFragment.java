@@ -1,5 +1,6 @@
 package com.ladwa.aditya.popularmovies;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -25,9 +26,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -48,6 +46,7 @@ public class MainActivityFragment extends Fragment {
     private MovieApi movieApi;
     private Subscription movieSubscription;
     private ActionBar mActionBar;
+    private int mOrientation;
 
 
     public MainActivityFragment() {
@@ -59,6 +58,7 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
         mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
     }
 
     @Override
@@ -66,9 +66,15 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
+        //Check if orientation is Landscape or portrate
+        mOrientation = getActivity().getResources().getConfiguration().orientation;
 
+        //Create the layout manager based on orientation
+        if (mOrientation == Configuration.ORIENTATION_PORTRAIT)
+            mlayoutManager = new GridLayoutManager(getActivity(), 2);
+        else
+            mlayoutManager = new GridLayoutManager(getActivity(), 3);
 
-        mlayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mlayoutManager);
 
         if (savedInstanceState != null) {
@@ -83,7 +89,6 @@ public class MainActivityFragment extends Fragment {
 
         return view;
     }
-
 
 
     private void callMovieApi(String sort) {
