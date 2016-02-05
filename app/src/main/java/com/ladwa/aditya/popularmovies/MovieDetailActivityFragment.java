@@ -13,7 +13,6 @@ import com.ladwa.aditya.popularmovies.model.ResultModel;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -50,7 +49,9 @@ public class MovieDetailActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
 
-        ResultModel model = (ResultModel) EventBus.getDefault().removeStickyEvent(ResultModel.class);
+
+
+        ResultModel model = getActivity().getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
         tvTitle.setText(model.getOriginalTitle());
         tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
         tvRating.setText(String.format(getString(R.string.rating), model.getRating()));
@@ -66,5 +67,8 @@ public class MovieDetailActivityFragment extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by Aditya on 03-Feb-16.
@@ -72,10 +71,9 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
         @Override
         public void onClick(View v) {
-            // Toast.makeText(mContext, "Clicked " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext, MovieDetailActivity.class);
-            EventBus.getDefault().postSticky(mresultListModel.get(getAdapterPosition()));
             Log.d("Clicked ", mresultListModel.get(getAdapterPosition()).getTitle());
+            intent.putExtra(Utility.EXTRA_RESULT_MODEL, mresultListModel.get(getAdapterPosition()));
             mContext.startActivity(intent);
         }
     }

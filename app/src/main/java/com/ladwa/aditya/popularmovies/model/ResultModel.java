@@ -1,5 +1,8 @@
 package com.ladwa.aditya.popularmovies.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 
-public class ResultModel {
+public class ResultModel implements Parcelable {
 
     private String title;
     @SerializedName("poster_path")
@@ -20,6 +23,27 @@ public class ResultModel {
     private String rating;
     @SerializedName("release_date")
     private String releaseDate;
+
+    protected ResultModel(Parcel in) {
+        title = in.readString();
+        posterUrl = in.readString();
+        originalTitle = in.readString();
+        plot = in.readString();
+        rating = in.readString();
+        releaseDate = in.readString();
+    }
+
+    public static final Creator<ResultModel> CREATOR = new Creator<ResultModel>() {
+        @Override
+        public ResultModel createFromParcel(Parcel in) {
+            return new ResultModel(in);
+        }
+
+        @Override
+        public ResultModel[] newArray(int size) {
+            return new ResultModel[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -71,4 +95,18 @@ public class ResultModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(posterUrl);
+        dest.writeString(originalTitle);
+        dest.writeString(plot);
+        dest.writeString(rating);
+        dest.writeString(releaseDate);
+    }
 }

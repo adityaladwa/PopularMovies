@@ -1,6 +1,7 @@
 package com.ladwa.aditya.popularmovies;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class MainActivityFragment extends Fragment {
     private MovieApi movieApi;
     private Subscription movieSubscription;
     private ActionBar mActionBar;
+    private Parcelable mliststate;
 
 
     public MainActivityFragment() {
@@ -65,22 +67,25 @@ public class MainActivityFragment extends Fragment {
 
 
         mPosterList = new ArrayList<>();
-
-
         mlayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mlayoutManager);
         movieApi = ServiceGenerator.createService(MovieApi.class);
 
+        if (savedInstanceState != null) {
+            mliststate = savedInstanceState.getParcelable("key");
+
+        }
+
 
         callMovieApi(Utility.SORT_POPULAR_DESC);
-
-
         return view;
     }
 
     private void callMovieApi(String sort) {
 
         mPosterList.removeAll(mPosterList);
+
+
         movieSubscription = movieApi.lodeMoviesRx(sort, getString(R.string.api_key))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -142,4 +147,13 @@ public class MainActivityFragment extends Fragment {
         super.onPause();
         movieSubscription.unsubscribe();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mliststate = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable("key", mliststate);
+    }
+
+
 }
