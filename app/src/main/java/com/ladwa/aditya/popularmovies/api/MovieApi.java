@@ -15,11 +15,7 @@ public interface MovieApi {
 
 
     @GET("discover/movie?sort_by=popularity.desc&api_key=a7cbde4ab474c71f23ea707e454e4b64")
-    Call<ResultListModel> lodeMoviesRxTestcall();
-
-
-    @GET("discover/movie?sort_by=popularity.desc&api_key=a7cbde4ab474c71f23ea707e454e4b64")
-    Observable<ResultListModel> lodeMoviesRxTest();
+    Call<ResultListModel> lodeMoviesTest();
 
 
     @GET("discover/movie")

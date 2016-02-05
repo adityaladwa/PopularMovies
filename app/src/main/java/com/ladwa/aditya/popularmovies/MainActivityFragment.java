@@ -25,6 +25,9 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -45,11 +48,11 @@ public class MainActivityFragment extends Fragment {
     private MovieApi movieApi;
     private Subscription movieSubscription;
     private ActionBar mActionBar;
-    private Parcelable mliststate;
 
 
     public MainActivityFragment() {
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -63,27 +66,29 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        //  Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
 
 
-        mPosterList = new ArrayList<>();
         mlayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mlayoutManager);
-        movieApi = ServiceGenerator.createService(MovieApi.class);
 
         if (savedInstanceState != null) {
-            mliststate = savedInstanceState.getParcelable("key");
-
+            mPosterList = savedInstanceState.getParcelableArrayList(Utility.EXTRA_MOVIE);
+            moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList);
+            moviesAdapter.notifyDataSetChanged();
+            mRecyclerView.setAdapter(moviesAdapter);
         }
-
-
+        movieApi = ServiceGenerator.createService(MovieApi.class);
         callMovieApi(Utility.SORT_POPULAR_DESC);
+
+
         return view;
     }
 
+
+
     private void callMovieApi(String sort) {
 
-        mPosterList.removeAll(mPosterList);
+//        mPosterList.removeAll(mPosterList);
 
 
         movieSubscription = movieApi.lodeMoviesRx(sort, getString(R.string.api_key))
@@ -106,12 +111,12 @@ public class MainActivityFragment extends Fragment {
 
                     @Override
                     public void onNext(ResultListModel resultListModel) {
-
+                        mPosterList = new ArrayList<>();
                         for (int i = 0; i < resultListModel.getResults().size(); i++) {
                             mPosterList.add(resultListModel.getResults().get(i));
                             Log.d(TAG, Utility.URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl());
-
                         }
+
                     }
                 });
     }
@@ -151,8 +156,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mliststate = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable("key", mliststate);
+        outState.putParcelableArrayList(Utility.EXTRA_MOVIE, (ArrayList<? extends Parcelable>) mPosterList);
     }
 
 
