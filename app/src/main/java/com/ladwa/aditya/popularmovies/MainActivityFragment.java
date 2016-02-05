@@ -75,6 +75,7 @@ public class MainActivityFragment extends Fragment {
         else
             mlayoutManager = new GridLayoutManager(getActivity(), 3);
 
+        //Setup layout manager to Recycler View
         mRecyclerView.setLayoutManager(mlayoutManager);
 
         if (savedInstanceState != null) {
