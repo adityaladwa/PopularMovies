@@ -2,7 +2,6 @@ package com.ladwa.aditya.popularmovies;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -85,7 +84,10 @@ public class MainActivityFragment extends Fragment {
             moviesAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(moviesAdapter);
         }
+        //Create a REST service endpoint
         movieApi = ServiceGenerator.createService(MovieApi.class);
+
+        //Call movie API
         callMovieApi(Utility.SORT_POPULAR_DESC);
 
 
@@ -94,10 +96,6 @@ public class MainActivityFragment extends Fragment {
 
 
     private void callMovieApi(String sort) {
-
-//        mPosterList.removeAll(mPosterList);
-
-
         movieSubscription = movieApi.lodeMoviesRx(sort, getString(R.string.api_key))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -149,8 +147,6 @@ public class MainActivityFragment extends Fragment {
                 mActionBar.setTitle(getString(R.string.top_rated_movies));
                 break;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -163,7 +159,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(Utility.EXTRA_MOVIE, (ArrayList<? extends Parcelable>) mPosterList);
+        outState.putParcelableArrayList(Utility.EXTRA_MOVIE, mPosterList);
     }
 
 
