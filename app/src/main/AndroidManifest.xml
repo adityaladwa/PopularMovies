@@ -12,6 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.ladwa.aditya.popularmovies.GlideConfig"
+            android:value="GlideModule" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

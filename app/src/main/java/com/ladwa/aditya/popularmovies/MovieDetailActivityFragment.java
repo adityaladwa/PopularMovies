@@ -55,7 +55,13 @@ public class MovieDetailActivityFragment extends Fragment {
         tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
         tvRating.setText(String.format(getString(R.string.rating), model.getRating()));
         tvPlot.setText(model.getPlot());
-        Glide.with(this).load(Utility.URL_IMAGE_BASE + model.getPosterUrl()).crossFade().fitCenter().into(imgPoster);
+        Glide.with(this)
+                .load(Utility.URL_IMAGE_BASE + model.getPosterUrl())
+                .placeholder(R.drawable.poster)
+                .error(R.drawable.poster)
+                .crossFade()
+                .fitCenter()
+                .into(imgPoster);
 
         return view;
     }

@@ -43,7 +43,9 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
-        Glide.with(mContext)
+        Context context = holder.imageView.getContext();
+
+        Glide.with(context)
                 .load(url)
                 .placeholder(R.drawable.poster)
                 .error(R.drawable.poster)
