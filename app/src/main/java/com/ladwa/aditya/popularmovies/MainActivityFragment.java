@@ -78,6 +78,7 @@ public class MainActivityFragment extends Fragment {
         //Setup layout manager to Recycler View
         mRecyclerView.setLayoutManager(mlayoutManager);
 
+        //Restore saved instance
         if (savedInstanceState != null) {
             mPosterList = savedInstanceState.getParcelableArrayList(Utility.EXTRA_MOVIE);
             moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList);
