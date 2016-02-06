@@ -21,8 +21,7 @@ public class MovieDetailActivityFragment extends Fragment {
 
     private static final String LOG_TAG = MovieDetailActivityFragment.class.getSimpleName();
 
-    @Bind(R.id.movietitle)
-    TextView tvTitle;
+
     @Bind(R.id.imageposter)
     ImageView imgPoster;
     @Bind(R.id.releasedate)
@@ -31,6 +30,9 @@ public class MovieDetailActivityFragment extends Fragment {
     TextView tvRating;
     @Bind(R.id.plot)
     TextView tvPlot;
+    ImageView imgBackdrop;
+    ResultModel model;
+    private onFragmentInteraction mListener;
 
     public MovieDetailActivityFragment() {
     }
@@ -40,8 +42,11 @@ public class MovieDetailActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
-
+        mListener = (onFragmentInteraction) getActivity();
+        mListener.setActionBarTitle(model.getOriginalTitle());
+        mListener.setBackdropImage(Utility.URL_IMAGE_BACKDROP_BASE + model.getBackdropUrl());
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,10 +54,10 @@ public class MovieDetailActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
 
+        imgBackdrop = (ImageView) getActivity().findViewById(R.id.toolbar_image_backdrop);
 
-
-        ResultModel model = getActivity().getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
-        tvTitle.setText(model.getOriginalTitle());
+        model = getActivity().getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
+        //  tvTitle.setText(model.getOriginalTitle());
         tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
         tvRating.setText(String.format(getString(R.string.rating), model.getRating()));
         tvPlot.setText(model.getPlot());
@@ -61,14 +66,16 @@ public class MovieDetailActivityFragment extends Fragment {
                 .placeholder(R.drawable.poster)
                 .error(R.drawable.poster)
                 .crossFade()
-                .fitCenter()
+                .centerCrop()
                 .into(imgPoster);
-
         return view;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+
+    public interface onFragmentInteraction {
+        public void setActionBarTitle(String title);
+
+        public void setBackdropImage(String backdropUrl);
+
     }
 }

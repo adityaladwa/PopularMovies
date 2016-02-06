@@ -15,6 +15,8 @@ public class ResultModel implements Parcelable {
     private String title;
     @SerializedName("poster_path")
     private String posterUrl;
+    @SerializedName("backdrop_path")
+    private String backdropUrl;
     @SerializedName("original_title")
     private String originalTitle;
     @SerializedName("overview")
@@ -24,6 +26,7 @@ public class ResultModel implements Parcelable {
     @SerializedName("release_date")
     private String releaseDate;
 
+
     protected ResultModel(Parcel in) {
         title = in.readString();
         posterUrl = in.readString();
@@ -31,6 +34,7 @@ public class ResultModel implements Parcelable {
         plot = in.readString();
         rating = in.readString();
         releaseDate = in.readString();
+        backdropUrl = in.readString();
     }
 
     public static final Creator<ResultModel> CREATOR = new Creator<ResultModel>() {
@@ -108,5 +112,14 @@ public class ResultModel implements Parcelable {
         dest.writeString(plot);
         dest.writeString(rating);
         dest.writeString(releaseDate);
+        dest.writeString(backdropUrl);
+    }
+
+    public String getBackdropUrl() {
+        return backdropUrl;
+    }
+
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
     }
 }
