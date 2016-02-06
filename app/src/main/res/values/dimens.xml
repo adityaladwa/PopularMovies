@@ -7,4 +7,6 @@
     <dimen name="title_size">30sp</dimen>
     <dimen name="poster_padding">2dp</dimen>
     <dimen name="plot_top_margin">5dp</dimen>
+    <dimen name="card_width">185dp</dimen>
+    <dimen name="card_height">277dp</dimen>
 </resources>

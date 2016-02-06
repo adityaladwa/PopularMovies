@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ladwa.aditya.popularmovies.MovieDetailActivity;
@@ -42,13 +43,13 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
+        String title = mresultListModel.get(position).getTitle();
         Context context = holder.imageView.getContext();
-
+        holder.textViewTitle.setText(title);
         Glide.with(context)
                 .load(url)
-                .placeholder(R.drawable.poster)
                 .error(R.drawable.poster)
-                .fitCenter()
+                .centerCrop()
                 .crossFade()
                 .into(holder.imageView);
 
@@ -62,6 +63,8 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.imageview_poster)
         ImageView imageView;
+        @Bind(R.id.card_movietitle)
+        TextView textViewTitle;
 
         public MyViewHolder(View itemView) {
             super(itemView);
