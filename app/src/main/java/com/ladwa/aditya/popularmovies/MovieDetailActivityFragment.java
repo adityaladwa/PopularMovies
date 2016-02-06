@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.model.ResultModel;
 
 import butterknife.Bind;
@@ -61,12 +62,12 @@ public class MovieDetailActivityFragment extends Fragment {
         tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
         tvRating.setText(String.format(getString(R.string.rating), model.getRating()));
         tvPlot.setText(model.getPlot());
-        Glide.with(this)
+        Glide.with(getContext())
                 .load(Utility.URL_IMAGE_BASE + model.getPosterUrl())
                 .placeholder(R.drawable.poster)
                 .error(R.drawable.poster)
-                .crossFade()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgPoster);
         return view;
     }

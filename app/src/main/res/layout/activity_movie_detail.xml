@@ -9,7 +9,6 @@
 
     <include layout="@layout/appbar_movie_detail" />
 
-
     <include layout="@layout/content_movie_detail" />
 
 

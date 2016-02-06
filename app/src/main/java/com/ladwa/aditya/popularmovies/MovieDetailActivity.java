@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,8 +40,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         Glide.with(MovieDetailActivity.this)
                 .load(backdropUrl)
                 .error(R.drawable.poster)
-                .crossFade()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgBackdrop);
 
     }

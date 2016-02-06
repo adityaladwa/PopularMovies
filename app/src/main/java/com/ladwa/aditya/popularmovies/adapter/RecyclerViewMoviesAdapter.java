@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.Utility;
@@ -48,9 +49,9 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
         holder.textViewTitle.setText(title);
         Glide.with(context)
                 .load(url)
-                .error(R.drawable.poster)
                 .centerCrop()
-                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.poster)
                 .into(holder.imageView);
 
     }
