@@ -1,4 +1,4 @@
-package com.ladwa.aditya.popularmovies;
+package com.ladwa.aditya.popularmovies.util;
 
 import android.content.Context;
 

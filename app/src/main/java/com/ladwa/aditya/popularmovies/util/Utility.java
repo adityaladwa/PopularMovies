@@ -1,4 +1,4 @@
-package com.ladwa.aditya.popularmovies;
+package com.ladwa.aditya.popularmovies.util;
 
 /**
  * Created by Aditya on 03-Feb-16.

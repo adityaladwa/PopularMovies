@@ -1,4 +1,4 @@
-package com.ladwa.aditya.popularmovies.api;
+package com.ladwa.aditya.popularmovies.data.api;
 
 
 import com.squareup.okhttp.OkHttpClient;

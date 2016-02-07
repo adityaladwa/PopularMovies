@@ -1,7 +1,7 @@
-package com.ladwa.aditya.popularmovies.api;
+package com.ladwa.aditya.popularmovies.data.api;
 
 
-import com.ladwa.aditya.popularmovies.model.ResultListModel;
+import com.ladwa.aditya.popularmovies.data.model.ResultListModel;
 
 import retrofit.Call;
 import retrofit.http.GET;

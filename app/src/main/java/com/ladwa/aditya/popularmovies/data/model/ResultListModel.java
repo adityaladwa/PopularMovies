@@ -1,4 +1,4 @@
-package com.ladwa.aditya.popularmovies.model;
+package com.ladwa.aditya.popularmovies.data.model;
 
 import java.util.ArrayList;
 

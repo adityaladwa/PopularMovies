@@ -1,4 +1,4 @@
-package com.ladwa.aditya.popularmovies;
+package com.ladwa.aditya.popularmovies.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.ladwa.aditya.popularmovies.model.ResultModel;
+import com.ladwa.aditya.popularmovies.R;
+import com.ladwa.aditya.popularmovies.util.Utility;
+import com.ladwa.aditya.popularmovies.data.model.ResultModel;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.ladwa.aditya.popularmovies;
+package com.ladwa.aditya.popularmovies.ui.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,11 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ladwa.aditya.popularmovies.adapter.RecyclerViewMoviesAdapter;
-import com.ladwa.aditya.popularmovies.api.MovieApi;
-import com.ladwa.aditya.popularmovies.api.ServiceGenerator;
-import com.ladwa.aditya.popularmovies.model.ResultListModel;
-import com.ladwa.aditya.popularmovies.model.ResultModel;
+import com.ladwa.aditya.popularmovies.R;
+import com.ladwa.aditya.popularmovies.util.Utility;
+import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
+import com.ladwa.aditya.popularmovies.data.api.MovieApi;
+import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
+import com.ladwa.aditya.popularmovies.data.model.ResultListModel;
+import com.ladwa.aditya.popularmovies.data.model.ResultModel;
 
 import java.util.ArrayList;
 
