@@ -14,6 +14,7 @@ public class GlideConfig implements GlideModule {
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
         builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
+
     }
 
     @Override

@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.util.Utility;
 import com.ladwa.aditya.popularmovies.data.model.ResultModel;
+import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
+import com.ladwa.aditya.popularmovies.util.Utility;
 
 import java.util.ArrayList;
 
@@ -29,6 +29,7 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
     private ArrayList<ResultModel> mresultListModel;
     private Context mContext;
+
 
     public RecyclerViewMoviesAdapter(Context context, ArrayList<ResultModel> model) {
         this.mresultListModel = model;
@@ -45,14 +46,15 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
         String title = mresultListModel.get(position).getTitle();
-        Context context = holder.imageView.getContext();
         holder.textViewTitle.setText(title);
-        Glide.with(context)
+
+        Glide.with(mContext)
                 .load(url)
+                .error(R.drawable.poster)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.poster)
                 .into(holder.imageView);
+
 
     }
 
@@ -60,6 +62,7 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     public int getItemCount() {
         return mresultListModel.size();
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.imageview_poster)

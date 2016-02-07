@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.util.Utility;
 import com.ladwa.aditya.popularmovies.data.model.ResultModel;
+import com.ladwa.aditya.popularmovies.util.Utility;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +37,7 @@ public class MovieDetailActivityFragment extends Fragment {
     ResultModel model;
     private onFragmentInteraction mListener;
 
+
     public MovieDetailActivityFragment() {
     }
 
@@ -60,25 +61,27 @@ public class MovieDetailActivityFragment extends Fragment {
         imgBackdrop = (ImageView) getActivity().findViewById(R.id.toolbar_image_backdrop);
 
         model = getActivity().getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
+        String url = Utility.URL_IMAGE_BASE + model.getPosterUrl();
         //  tvTitle.setText(model.getOriginalTitle());
         tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
         tvRating.setText(String.format(getString(R.string.rating), model.getRating()));
         tvPlot.setText(model.getPlot());
         Glide.with(getContext())
-                .load(Utility.URL_IMAGE_BASE + model.getPosterUrl())
+                .load(url)
                 .placeholder(R.drawable.poster)
                 .error(R.drawable.poster)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgPoster);
+
         return view;
     }
 
 
     public interface onFragmentInteraction {
-        public void setActionBarTitle(String title);
+        void setActionBarTitle(String title);
 
-        public void setBackdropImage(String backdropUrl);
+        void setBackdropImage(String backdropUrl);
 
     }
 }

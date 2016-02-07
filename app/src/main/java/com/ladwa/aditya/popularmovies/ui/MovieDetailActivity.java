@@ -1,6 +1,5 @@
 package com.ladwa.aditya.popularmovies.ui;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @Bind(R.id.toolbar_image_backdrop)
     ImageView imgBackdrop;
 
-    Drawable imgCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgBackdrop);
+
 
     }
 
