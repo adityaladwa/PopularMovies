@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,12 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.util.Utility;
-import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.ResultListModel;
-import com.ladwa.aditya.popularmovies.data.model.ResultModel;
+import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
+import com.ladwa.aditya.popularmovies.util.Utility;
 
 import java.util.ArrayList;
 
@@ -41,13 +41,16 @@ public class MainActivityFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     private String TAG = MainActivityFragment.class.getSimpleName();
-    private ArrayList<ResultModel> mPosterList;
+    private ArrayList<ResultListModel.ResultModel> mPosterList;
     private GridLayoutManager mlayoutManager;
     private RecyclerViewMoviesAdapter moviesAdapter;
     private MovieApi movieApi;
     private Subscription movieSubscription;
     private ActionBar mActionBar;
     private int mOrientation;
+
+
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
 
     public MainActivityFragment() {
@@ -71,10 +74,14 @@ public class MainActivityFragment extends Fragment {
         mOrientation = getActivity().getResources().getConfiguration().orientation;
 
         //Create the layout manager based on orientation
-        if (mOrientation == Configuration.ORIENTATION_PORTRAIT)
+        if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
             mlayoutManager = new GridLayoutManager(getActivity(), 2);
-        else
+            staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
+        } else {
             mlayoutManager = new GridLayoutManager(getActivity(), 3);
+            staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
+
+        }
 
         //Setup layout manager to Recycler View
         mRecyclerView.setLayoutManager(mlayoutManager);

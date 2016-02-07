@@ -8,5 +8,8 @@
     <dimen name="poster_padding">2dp</dimen>
     <dimen name="plot_top_margin">5dp</dimen>
     <dimen name="card_width">185dp</dimen>
-    <dimen name="card_height">277dp</dimen>
+    <dimen name="card_height">320dp</dimen>
+    <dimen name="image_width">185dp</dimen>
+    <dimen name="image_height">277dp</dimen>
+    <dimen name="card_title_textview_padding">1dp</dimen>
 </resources>

@@ -17,7 +17,7 @@
             <ImageView
                 android:id="@+id/imageposter"
                 android:layout_width="@dimen/card_width"
-                android:layout_height="@dimen/card_height"
+                android:layout_height="@dimen/image_height"
                 android:src="@drawable/poster" />
 
             <LinearLayout
@@ -45,12 +45,12 @@
             </LinearLayout>
 
             <TextView
-                android:text="Title"
                 android:id="@+id/movieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lnLayout"
-                android:layout_marginTop="@dimen/plot_top_margin" />
+                android:layout_marginTop="@dimen/plot_top_margin"
+                android:text="Title" />
         </LinearLayout>
 
         <TextView

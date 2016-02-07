@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.data.model.ResultModel;
+import com.ladwa.aditya.popularmovies.data.model.ResultListModel.ResultModel;
 import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
@@ -47,8 +47,7 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
         String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
         String title = mresultListModel.get(position).getTitle();
         holder.textViewTitle.setText(title);
-
-        Glide.with(mContext)
+        Glide.with(holder.imageView.getContext())
                 .load(url)
                 .error(R.drawable.poster)
                 .centerCrop()
