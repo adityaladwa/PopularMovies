@@ -53,6 +53,7 @@
                 android:text="Title" />
         </LinearLayout>
 
+
         <TextView
             android:id="@+id/plot"
             android:layout_width="match_parent"

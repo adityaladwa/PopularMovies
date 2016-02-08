@@ -49,6 +49,7 @@ public class MovieDetailActivityFragment extends Fragment {
         mListener = (onFragmentInteraction) getActivity();
         mListener.setActionBarTitle(model.getOriginalTitle());
         mListener.setBackdropImage(Utility.URL_IMAGE_BACKDROP_BASE + model.getBackdropUrl());
+
     }
 
 
@@ -57,6 +58,7 @@ public class MovieDetailActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
+
 
         imgBackdrop = (ImageView) getActivity().findViewById(R.id.toolbar_image_backdrop);
 
