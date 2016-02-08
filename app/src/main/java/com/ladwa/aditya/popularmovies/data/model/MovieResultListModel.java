@@ -10,10 +10,9 @@ import java.util.ArrayList;
 /**
  * Created by Aditya on 03-Feb-16.
  */
-public class ResultListModel {
+public class MovieResultListModel {
     private ArrayList<ResultModel> results;
     private String page;
-
 
     public ArrayList<ResultModel> getResults() {
         return results;

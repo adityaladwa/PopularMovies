@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.data.model.ResultListModel;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
 import butterknife.Bind;
@@ -34,7 +34,7 @@ public class MovieDetailActivityFragment extends Fragment {
     @Bind(R.id.plot)
     TextView tvPlot;
     ImageView imgBackdrop;
-    ResultListModel.ResultModel model;
+    MovieResultListModel.ResultModel model;
     private onFragmentInteraction mListener;
 
 

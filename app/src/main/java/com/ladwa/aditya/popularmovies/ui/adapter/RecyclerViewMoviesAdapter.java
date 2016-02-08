@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
-import com.ladwa.aditya.popularmovies.data.model.ResultListModel.ResultModel;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel.ResultModel;
 import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.util.Utility;
 

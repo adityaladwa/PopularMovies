@@ -1,9 +1,11 @@
 package com.ladwa.aditya.popularmovies.data.api;
 
 
-import com.ladwa.aditya.popularmovies.data.model.ResultListModel;
+import com.ladwa.aditya.popularmovies.data.model.MovieVideoListModel;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
@@ -14,9 +16,10 @@ public interface MovieApi {
 
 
     @GET("discover/movie")
-    Observable<ResultListModel> lodeMoviesRx(@Query("sort_by") String sort, @Query("api_key") String apikey);
+    Observable<MovieResultListModel> lodeMoviesRx(@Query("sort_by") String sort, @Query("api_key") String apikey);
 
-
+    @GET("movie/{id}/videos")
+    Observable<MovieVideoListModel> getMovieTrailerRx(@Path("id") String id, @Query("api_key") String apikey);
 
 }
 

@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
-import com.ladwa.aditya.popularmovies.data.model.ResultListModel;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
@@ -41,7 +41,7 @@ public class MainActivityFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     private String TAG = MainActivityFragment.class.getSimpleName();
-    private ArrayList<ResultListModel.ResultModel> mPosterList;
+    private ArrayList<MovieResultListModel.ResultModel> mPosterList;
     private GridLayoutManager mlayoutManager;
     private RecyclerViewMoviesAdapter moviesAdapter;
     private MovieApi movieApi;
@@ -109,7 +109,7 @@ public class MainActivityFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(new Observer<ResultListModel>() {
+                .subscribe(new Observer<MovieResultListModel>() {
                     @Override
                     public void onCompleted() {
                         moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList);
@@ -124,11 +124,11 @@ public class MainActivityFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNext(ResultListModel resultListModel) {
+                    public void onNext(MovieResultListModel movieResultListModel) {
                         mPosterList = new ArrayList<>();
-                        for (int i = 0; i < resultListModel.getResults().size(); i++) {
-                            mPosterList.add(resultListModel.getResults().get(i));
-                            Log.d(TAG, Utility.URL_IMAGE_BASE + resultListModel.getResults().get(i).getPosterUrl());
+                        for (int i = 0; i < movieResultListModel.getResults().size(); i++) {
+                            mPosterList.add(movieResultListModel.getResults().get(i));
+                            Log.d(TAG, Utility.URL_IMAGE_BASE + movieResultListModel.getResults().get(i).getPosterUrl());
                         }
 
                     }
