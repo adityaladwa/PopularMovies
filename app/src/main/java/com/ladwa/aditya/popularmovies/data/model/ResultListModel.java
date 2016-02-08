@@ -47,6 +47,8 @@ public class ResultListModel {
         private String rating;
         @SerializedName("release_date")
         private String releaseDate;
+        @SerializedName("id")
+        private String movieId;
 
         protected ResultModel(Parcel in) {
             title = in.readString();
@@ -56,6 +58,7 @@ public class ResultListModel {
             plot = in.readString();
             rating = in.readString();
             releaseDate = in.readString();
+            movieId = in.readString();
         }
 
         public static final Creator<ResultModel> CREATOR = new Creator<ResultModel>() {
@@ -142,6 +145,15 @@ public class ResultListModel {
             dest.writeString(plot);
             dest.writeString(rating);
             dest.writeString(releaseDate);
+            dest.writeString(movieId);
+        }
+
+        public String getMovieId() {
+            return movieId;
+        }
+
+        public void setMovieId(String movieId) {
+            this.movieId = movieId;
         }
     }
 

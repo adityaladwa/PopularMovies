@@ -1,6 +1,7 @@
 package com.ladwa.aditya.popularmovies.data.api;
 
 
+import com.ladwa.aditya.popularmovies.util.Utility;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.GsonConverterFactory;
@@ -12,11 +13,11 @@ import retrofit.RxJavaCallAdapterFactory;
  */
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://api.themoviedb.org/3/";
+
     private static OkHttpClient httpClient = new OkHttpClient();
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
+            .baseUrl(Utility.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
 
