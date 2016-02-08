@@ -16,5 +16,7 @@ public interface MovieApi {
     @GET("discover/movie")
     Observable<ResultListModel> lodeMoviesRx(@Query("sort_by") String sort, @Query("api_key") String apikey);
 
+
+
 }
 
