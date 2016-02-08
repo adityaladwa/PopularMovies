@@ -65,7 +65,6 @@ public class MovieTrailerFragment extends Fragment {
                         }
                     }
                 });
-
         return view;
     }
 
