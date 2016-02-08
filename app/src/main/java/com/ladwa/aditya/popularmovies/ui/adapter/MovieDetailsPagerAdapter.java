@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ladwa.aditya.popularmovies.ui.fragments.MovieDetailActivityFragment;
+import com.ladwa.aditya.popularmovies.ui.fragments.MovieReviewsFragment;
+import com.ladwa.aditya.popularmovies.ui.fragments.MovieTrailerFragment;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
 /**
@@ -12,13 +14,27 @@ import com.ladwa.aditya.popularmovies.util.Utility;
  */
 public class MovieDetailsPagerAdapter extends FragmentPagerAdapter {
 
+
     public MovieDetailsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return new MovieDetailActivityFragment();
+        switch (position) {
+            case 0:
+                return new MovieDetailActivityFragment();
+
+            case 1:
+                return new MovieTrailerFragment();
+
+            case 2:
+                return new MovieReviewsFragment();
+
+            default:
+                return new Fragment();
+
+        }
     }
 
     @Override
