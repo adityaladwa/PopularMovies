@@ -40,7 +40,7 @@ public class MainActivityFragment extends Fragment {
     @Bind(R.id.recycler_view_movie)
     RecyclerView mRecyclerView;
 
-    private String TAG = MainActivityFragment.class.getSimpleName();
+    private static final String TAG = MainActivityFragment.class.getSimpleName();
     private ArrayList<MovieResultListModel.ResultModel> mPosterList;
     private GridLayoutManager mlayoutManager;
     private RecyclerViewMoviesAdapter moviesAdapter;

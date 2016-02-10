@@ -3,16 +3,19 @@ package com.ladwa.aditya.popularmovies.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.MovieVideoListModel;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,8 +32,13 @@ public class MovieTrailerFragment extends Fragment {
     private static final String LOG_TAG = MovieTrailerFragment.class.getSimpleName();
     private MovieApi movieApi;
     private Subscription videoSubscription;
-    @Bind(R.id.tvTrailer)
-    TextView textViewTrailer;
+
+    private ArrayList<MovieVideoListModel> mVideoList;
+    private LinearLayoutManager linearLayoutManager;
+
+
+    @Bind(R.id.recycler_view_movie_trailer)
+    RecyclerView mRecyclerView;
 
 
     public MovieTrailerFragment() {
@@ -61,7 +69,7 @@ public class MovieTrailerFragment extends Fragment {
                     @Override
                     public void onNext(MovieVideoListModel movieVideoListModel) {
                         for (int i = 0; i < movieVideoListModel.getResults().size(); i++) {
-                            textViewTrailer.append(movieVideoListModel.getResults().get(i).getVideoID() + "\n");
+
                         }
                     }
                 });
