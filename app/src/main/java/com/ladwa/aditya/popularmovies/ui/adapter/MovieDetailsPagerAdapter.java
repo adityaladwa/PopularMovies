@@ -32,12 +32,16 @@ public class MovieDetailsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 MovieTrailerFragment trailerFragment = new MovieTrailerFragment();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("movie", resultModel);
+                bundle.putParcelable(Utility.EXTRA_VIDEO_FRAGMENT, resultModel);
                 trailerFragment.setArguments(bundle);
                 return trailerFragment;
 
             case 2:
-                return new MovieReviewsFragment();
+                MovieReviewsFragment movieReviewsFragment = new MovieReviewsFragment();
+                Bundle args = new Bundle();
+                args.putParcelable(Utility.EXTRA_REVIEW_FRAGMENT, resultModel);
+                movieReviewsFragment.setArguments(args);
+                return movieReviewsFragment;
 
             default:
                 return new Fragment();

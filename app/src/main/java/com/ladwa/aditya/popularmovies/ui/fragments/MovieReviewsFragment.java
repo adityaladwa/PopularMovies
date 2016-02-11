@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.data.model.MovieReviewListModel;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewReviewAdapter;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewVideoAdapter;
+import com.ladwa.aditya.popularmovies.util.Utility;
 
 import java.util.ArrayList;
 
@@ -50,10 +52,19 @@ public class MovieReviewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_reviews, container, false);
         ButterKnife.bind(this, view);
 
+
+        Bundle bundle = getArguments();
+        MovieResultListModel.ResultModel resultModel = bundle.getParcelable(Utility.EXTRA_REVIEW_FRAGMENT);
+
+        String id = null;
+        if (resultModel != null) {
+            id = resultModel.getMovieId();
+        }
+
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        callReview("281957");
+        callReview(id);
         return view;
     }
 
