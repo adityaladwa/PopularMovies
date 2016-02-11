@@ -4,6 +4,7 @@
     android:id="@+id/moviecard"
     android:layout_width="fill_parent"
     android:layout_height="100dp"
+    android:layout_margin="5dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="4dp">
 
@@ -27,12 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_toEndOf="@id/imageview_trailer_thumbnail"
-            android:text="This is a Trailer"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/imageview_trailer_thumbnail" />
+            android:layout_toRightOf="@id/imageview_trailer_thumbnail"
+            android:text="This is a Trailer" />
 
     </RelativeLayout>
 

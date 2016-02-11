@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.data.model.MovieVideoListModel;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewVideoAdapter;
 import com.ladwa.aditya.popularmovies.util.Utility;
@@ -34,10 +35,10 @@ public class MovieTrailerFragment extends Fragment {
     private static final String LOG_TAG = MovieTrailerFragment.class.getSimpleName();
     private MovieApi movieApi;
     private Subscription videoSubscription;
-
     private ArrayList<MovieVideoListModel.VideoModel> mVideoList = null;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerViewVideoAdapter videoAdapter;
+    private MovieResultListModel.ResultModel resultModel;
 
 
     @Bind(R.id.recycler_view_movie_trailer)
@@ -53,11 +54,26 @@ public class MovieTrailerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_trailer, container, false);
         ButterKnife.bind(this, view);
 
+        Bundle bundle = getArguments();
+
+        MovieResultListModel.ResultModel resultModel = bundle.getParcelable("movie");
+
+        String id = null;
+        if (resultModel != null) {
+            id = resultModel.getMovieId();
+        }
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
+        callTrailer(id);
+
+
+        return view;
+    }
+
+    private void callTrailer(String id) {
         movieApi = ServiceGenerator.createService(MovieApi.class);
-        videoSubscription = movieApi.getMovieTrailerRx("281957", getString(R.string.api_key))
+        videoSubscription = movieApi.getMovieTrailerRx(id, getString(R.string.api_key))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -84,7 +100,7 @@ public class MovieTrailerFragment extends Fragment {
                         }
                     }
                 });
-        return view;
+
     }
 
     @Override

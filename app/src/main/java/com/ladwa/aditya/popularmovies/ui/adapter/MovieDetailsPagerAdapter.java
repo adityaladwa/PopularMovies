@@ -1,9 +1,11 @@
 package com.ladwa.aditya.popularmovies.ui.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.ui.fragments.MovieDetailActivityFragment;
 import com.ladwa.aditya.popularmovies.ui.fragments.MovieReviewsFragment;
 import com.ladwa.aditya.popularmovies.ui.fragments.MovieTrailerFragment;
@@ -14,9 +16,11 @@ import com.ladwa.aditya.popularmovies.util.Utility;
  */
 public class MovieDetailsPagerAdapter extends FragmentPagerAdapter {
 
+    private MovieResultListModel.ResultModel resultModel;
 
-    public MovieDetailsPagerAdapter(FragmentManager fm) {
+    public MovieDetailsPagerAdapter(FragmentManager fm, MovieResultListModel.ResultModel model) {
         super(fm);
+        this.resultModel = model;
     }
 
     @Override
@@ -26,7 +30,11 @@ public class MovieDetailsPagerAdapter extends FragmentPagerAdapter {
                 return new MovieDetailActivityFragment();
 
             case 1:
-                return new MovieTrailerFragment();
+                MovieTrailerFragment trailerFragment = new MovieTrailerFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("movie", resultModel);
+                trailerFragment.setArguments(bundle);
+                return trailerFragment;
 
             case 2:
                 return new MovieReviewsFragment();

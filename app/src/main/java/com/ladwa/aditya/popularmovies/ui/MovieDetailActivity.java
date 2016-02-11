@@ -39,11 +39,14 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_movie_detail);
         setSupportActionBar(toolbar);
 
-        //Setup ViewPage and Tabs
-        viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager()));
+        model = getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
+
+
+
+        viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager(),model));
         tabLayout.setupWithViewPager(viewPager);
 
-        model = getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
+
 
     }
 
