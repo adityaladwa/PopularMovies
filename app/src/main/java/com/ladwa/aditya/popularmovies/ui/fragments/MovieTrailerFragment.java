@@ -65,8 +65,6 @@ public class MovieTrailerFragment extends Fragment {
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         callTrailer(id);
-
-
         return view;
     }
 
