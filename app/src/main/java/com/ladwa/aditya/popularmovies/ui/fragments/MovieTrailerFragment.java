@@ -64,6 +64,13 @@ public class MovieTrailerFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(Utility.EXTRA_VIDEO)) {
+            mVideoList = savedInstanceState.getParcelableArrayList(Utility.EXTRA_VIDEO);
+            videoAdapter = new RecyclerViewVideoAdapter(mVideoList, getActivity());
+            videoAdapter.notifyDataSetChanged();
+            mRecyclerView.setAdapter(videoAdapter);
+        }
+
         callTrailer(id);
         return view;
     }
@@ -104,5 +111,11 @@ public class MovieTrailerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         videoSubscription.unsubscribe();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(Utility.EXTRA_VIDEO, mVideoList);
     }
 }

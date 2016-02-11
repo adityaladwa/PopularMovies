@@ -11,6 +11,7 @@ public class Utility {
     public static final String SORT_RATING_DESC = "vote_average.desc";
     public static final String EXTRA_RESULT_MODEL = "extra_result_model";
     public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_VIDEO = "extra_video";
     public static final String[] TABS_MOVIE_DETAIL = {"Plot", "Trailer", "Reviews"};
 
     public static final String YOUTUBE_THUMBNAIL_URL_BASE = "http://img.youtube.com/vi/";
