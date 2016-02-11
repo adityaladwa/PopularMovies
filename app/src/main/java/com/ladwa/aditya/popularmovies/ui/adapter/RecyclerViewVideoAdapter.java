@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Aditya on 10-Feb-16.
  */
-public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewVideoAdapter.MyViewHolder> {
+public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewVideoAdapter.VideoViewHolder> {
 
     private static final String LOG_TAG = RecyclerViewVideoAdapter.class.getSimpleName();
 
@@ -38,13 +38,13 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_trailer_item, parent, false);
-        return new MyViewHolder(view);
+        return new VideoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(VideoViewHolder holder, int position) {
 
         String url = Utility.YOUTUBE_THUMBNAIL_URL_BASE + mVideoList.get(position).getKey() + "/default.jpg";
         String title = mVideoList.get(position).getName();
@@ -62,14 +62,14 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
         return mVideoList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.imageview_trailer_thumbnail)
         ImageView imageViewThumbnails;
         @Bind(R.id.textview_trailername)
         TextView textViewTrailerTitle;
 
-        public MyViewHolder(View itemView) {
+        public VideoViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);

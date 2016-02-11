@@ -5,19 +5,26 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
+import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.MovieReviewListModel;
+import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewReviewAdapter;
+import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewVideoAdapter;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Aditya on 08-Feb-16.
@@ -29,6 +36,7 @@ public class MovieReviewsFragment extends Fragment {
     private Subscription reviewSubscription;
     private ArrayList<MovieReviewListModel.ReviewModel> reviewModelArrayList;
     private LinearLayoutManager linearLayoutManager;
+    private RecyclerViewReviewAdapter mReviewAdapter;
 
     @Bind(R.id.recycler_view_movie_review)
     RecyclerView mRecyclerView;
@@ -45,10 +53,42 @@ public class MovieReviewsFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-
+        callReview("281957");
         return view;
     }
 
+
+    private void callReview(String id) {
+        movieApi = ServiceGenerator.createService(MovieApi.class);
+        reviewSubscription = movieApi.getMovieReviewRx(id, getString(R.string.api_key))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<MovieReviewListModel>() {
+                    @Override
+                    public void onCompleted() {
+                        mReviewAdapter = new RecyclerViewReviewAdapter(reviewModelArrayList,getActivity());
+                        mReviewAdapter.notifyDataSetChanged();
+                        mRecyclerView.setAdapter(mReviewAdapter);
+                        Log.d(LOG_TAG, "Completed loading movie videos");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(MovieReviewListModel movieReviewListModel) {
+                        reviewModelArrayList = new ArrayList<>();
+                        for (int i = 0; i < movieReviewListModel.getResults().size(); i++) {
+                            reviewModelArrayList.add(movieReviewListModel.getResults().get(i));
+                            Log.d(LOG_TAG, movieReviewListModel.getResults().get(i).getContent());
+                        }
+                    }
+                });
+
+    }
 
     @Override
     public void onPause() {

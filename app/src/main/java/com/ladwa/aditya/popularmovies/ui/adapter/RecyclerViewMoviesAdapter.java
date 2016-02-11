@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Aditya on 03-Feb-16.
  */
-public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerViewMoviesAdapter.MyViewHolder> {
+public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerViewMoviesAdapter.MoviesViewHolder> {
 
     private ArrayList<ResultModel> mresultListModel;
     private Context mContext;
@@ -37,13 +37,13 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
-        return new MyViewHolder(view);
+        return new MoviesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MoviesViewHolder holder, int position) {
         String url = Utility.URL_IMAGE_BASE + mresultListModel.get(position).getPosterUrl();
         String title = mresultListModel.get(position).getTitle();
         holder.textViewTitle.setText(title);
@@ -63,13 +63,13 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.imageview_poster)
         ImageView imageView;
         @Bind(R.id.card_movietitle)
         TextView textViewTitle;
 
-        public MyViewHolder(View itemView) {
+        public MoviesViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
