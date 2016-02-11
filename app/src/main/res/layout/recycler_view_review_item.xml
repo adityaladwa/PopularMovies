@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/moviecard"
     android:layout_width="fill_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:layout_margin="4dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="4dp">
@@ -14,26 +14,39 @@
         android:orientation="vertical">
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/imageview_trailer_thumbnail"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:id="@+id/imageview_review_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:text="Author"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"
             android:contentDescription="@null"
-            android:orientation="vertical"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster" />
+            android:orientation="vertical" />
 
         <TextView
-            android:id="@+id/textview_trailername"
+            android:id="@+id/textview_review_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_toEndOf="@id/imageview_trailer_thumbnail"
-            android:layout_toRightOf="@id/imageview_trailer_thumbnail"
+            android:layout_below="@id/imageview_review_author"
             android:text="This is a Trailer" />
+
+
+        <TextView
+            android:id="@+id/textview_review_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:layout_below="@id/textview_review_content"
+            android:text="Link" />
 
     </RelativeLayout>
 
