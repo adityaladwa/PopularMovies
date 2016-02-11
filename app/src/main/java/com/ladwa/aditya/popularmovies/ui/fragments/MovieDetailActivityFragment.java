@@ -24,7 +24,6 @@ public class MovieDetailActivityFragment extends Fragment {
 
     private static final String LOG_TAG = MovieDetailActivityFragment.class.getSimpleName();
 
-
     @Bind(R.id.imageposter)
     ImageView imgPoster;
     @Bind(R.id.releasedate)
@@ -83,6 +82,5 @@ public class MovieDetailActivityFragment extends Fragment {
         void setActionBarTitle(String title);
 
         void setBackdropImage(String backdropUrl);
-
     }
 }
