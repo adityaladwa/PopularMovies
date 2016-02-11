@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.ladwa.aditya.popularmovies.R;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Aditya on 08-Feb-16.
  */
@@ -21,6 +23,7 @@ public class MovieReviewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_reviews, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 }
