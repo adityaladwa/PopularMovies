@@ -55,7 +55,7 @@ public class MovieTrailerFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        MovieResultListModel.ResultModel resultModel = bundle.getParcelable(Utility.EXTRA_VIDEO_FRAGMENT);
+        MovieResultListModel.ResultModel resultModel = bundle.getParcelable(Utility.EXTRA_TRAILER_FRAGMENT);
 
         String id = null;
         if (resultModel != null) {

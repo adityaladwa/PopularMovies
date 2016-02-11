@@ -32,7 +32,7 @@ public class MovieDetailsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 MovieTrailerFragment trailerFragment = new MovieTrailerFragment();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Utility.EXTRA_VIDEO_FRAGMENT, resultModel);
+                bundle.putParcelable(Utility.EXTRA_TRAILER_FRAGMENT, resultModel);
                 trailerFragment.setArguments(bundle);
                 return trailerFragment;
 
