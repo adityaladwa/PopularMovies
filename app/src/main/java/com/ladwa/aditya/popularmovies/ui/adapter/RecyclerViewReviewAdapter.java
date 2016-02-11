@@ -2,6 +2,7 @@ package com.ladwa.aditya.popularmovies.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,8 @@ public class RecyclerViewReviewAdapter extends RecyclerView.Adapter<RecyclerView
         holder.tvContent.setText(content);
         holder.tvLink.setText(link);
 
+        Linkify.addLinks(holder.tvLink, Linkify.WEB_URLS);
+
     }
 
     @Override
@@ -66,7 +69,10 @@ public class RecyclerViewReviewAdapter extends RecyclerView.Adapter<RecyclerView
 
         public ReviewViewHolder(View itemView) {
             super(itemView);
+
             ButterKnife.bind(this, itemView);
         }
+
+
     }
 }

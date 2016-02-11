@@ -18,20 +18,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Author"
-            android:textSize="20sp"
-            android:textColor="@color/colorAccent"
             android:contentDescription="@null"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:text="Author"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textview_review_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/textview_review_author"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_below="@id/textview_review_author"
             android:text="This is a Trailer" />
 
 
@@ -39,14 +39,15 @@
             android:id="@+id/textview_review_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/textview_review_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@android:color/holo_blue_light"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
-            android:layout_below="@id/textview_review_content"
-            android:text="Link" />
+            android:text="Link"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

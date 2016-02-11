@@ -5,7 +5,8 @@
     android:layout_width="@dimen/card_width"
     android:layout_height="@dimen/card_height"
     android:layout_gravity="center"
-    card_view:cardCornerRadius="10dp"
+    android:layout_margin="2dp"
+    card_view:cardCornerRadius="2dp"
     card_view:cardElevation="4dp">
 
     <RelativeLayout
@@ -14,6 +15,7 @@
         android:orientation="vertical">
 
         <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+
             android:id="@+id/imageview_poster"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_height"
