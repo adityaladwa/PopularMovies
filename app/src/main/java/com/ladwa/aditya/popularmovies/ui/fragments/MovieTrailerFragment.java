@@ -55,7 +55,6 @@ public class MovieTrailerFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-
         MovieResultListModel.ResultModel resultModel = bundle.getParcelable("movie");
 
         String id = null;

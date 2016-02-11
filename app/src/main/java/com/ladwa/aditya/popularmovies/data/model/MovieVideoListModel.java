@@ -1,5 +1,8 @@
 package com.ladwa.aditya.popularmovies.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ public class MovieVideoListModel {
     }
 
 
-    public static class VideoModel {
+    public static class VideoModel implements Parcelable {
         @SerializedName("id")
         private String videoID;
         private String key;
@@ -37,6 +40,26 @@ public class MovieVideoListModel {
         private String site;
         private String type;
 
+
+        protected VideoModel(Parcel in) {
+            videoID = in.readString();
+            key = in.readString();
+            name = in.readString();
+            site = in.readString();
+            type = in.readString();
+        }
+
+        public static final Creator<VideoModel> CREATOR = new Creator<VideoModel>() {
+            @Override
+            public VideoModel createFromParcel(Parcel in) {
+                return new VideoModel(in);
+            }
+
+            @Override
+            public VideoModel[] newArray(int size) {
+                return new VideoModel[size];
+            }
+        };
 
         public String getVideoID() {
             return videoID;
@@ -76,6 +99,20 @@ public class MovieVideoListModel {
 
         public void setType(String type) {
             this.type = type;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(videoID);
+            dest.writeString(key);
+            dest.writeString(name);
+            dest.writeString(site);
+            dest.writeString(type);
         }
     }
 }
