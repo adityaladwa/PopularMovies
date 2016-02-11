@@ -14,7 +14,8 @@ import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.MovieVideoListModel;
-import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
+import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewVideoAdapter;
+import com.ladwa.aditya.popularmovies.util.Utility;
 
 import java.util.ArrayList;
 
@@ -34,9 +35,9 @@ public class MovieTrailerFragment extends Fragment {
     private MovieApi movieApi;
     private Subscription videoSubscription;
 
-    private ArrayList<MovieVideoListModel> mVideoList;
+    private ArrayList<MovieVideoListModel.VideoModel> mVideoList = null;
     private LinearLayoutManager linearLayoutManager;
-    private RecyclerViewMoviesAdapter moviesAdapter;
+    private RecyclerViewVideoAdapter videoAdapter;
 
 
     @Bind(R.id.recycler_view_movie_trailer)
@@ -52,6 +53,9 @@ public class MovieTrailerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_trailer, container, false);
         ButterKnife.bind(this, view);
 
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
         movieApi = ServiceGenerator.createService(MovieApi.class);
         videoSubscription = movieApi.getMovieTrailerRx("281957", getString(R.string.api_key))
                 .subscribeOn(Schedulers.io())
@@ -60,6 +64,9 @@ public class MovieTrailerFragment extends Fragment {
                 .subscribe(new Observer<MovieVideoListModel>() {
                     @Override
                     public void onCompleted() {
+                        videoAdapter = new RecyclerViewVideoAdapter(mVideoList, getActivity());
+                        videoAdapter.notifyDataSetChanged();
+                        mRecyclerView.setAdapter(videoAdapter);
                         Log.d(LOG_TAG, "Completed loading movie videos");
                     }
 
@@ -70,8 +77,10 @@ public class MovieTrailerFragment extends Fragment {
 
                     @Override
                     public void onNext(MovieVideoListModel movieVideoListModel) {
+                        mVideoList = new ArrayList<>();
                         for (int i = 0; i < movieVideoListModel.getResults().size(); i++) {
-
+                            mVideoList.add(movieVideoListModel.getResults().get(i));
+                            Log.d(LOG_TAG, Utility.YOUTUBE_THUMBNAIL_URL_BASE + movieVideoListModel.getResults().get(i).getKey() + "/default.jpg");
                         }
                     }
                 });
