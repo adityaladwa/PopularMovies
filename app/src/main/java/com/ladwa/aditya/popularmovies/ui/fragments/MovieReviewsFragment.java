@@ -16,7 +16,6 @@ import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.data.model.MovieReviewListModel;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewReviewAdapter;
-import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewVideoAdapter;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class MovieReviewsFragment extends Fragment {
     private static final String LOG_TAG = MovieReviewsFragment.class.getSimpleName();
     private MovieApi movieApi;
     private Subscription reviewSubscription;
-    private ArrayList<MovieReviewListModel.ReviewModel> reviewModelArrayList;
+    private ArrayList<MovieReviewListModel.ReviewModel> reviewList;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerViewReviewAdapter mReviewAdapter;
 
@@ -64,6 +63,13 @@ public class MovieReviewsFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(Utility.EXTRA_REVIEW)) {
+            reviewList = savedInstanceState.getParcelableArrayList(Utility.EXTRA_REVIEW);
+            mReviewAdapter = new RecyclerViewReviewAdapter(reviewList, getActivity());
+            mReviewAdapter.notifyDataSetChanged();
+            mRecyclerView.setAdapter(mReviewAdapter);
+        }
+
         callReview(id);
         return view;
     }
@@ -78,7 +84,7 @@ public class MovieReviewsFragment extends Fragment {
                 .subscribe(new Observer<MovieReviewListModel>() {
                     @Override
                     public void onCompleted() {
-                        mReviewAdapter = new RecyclerViewReviewAdapter(reviewModelArrayList,getActivity());
+                        mReviewAdapter = new RecyclerViewReviewAdapter(reviewList, getActivity());
                         mReviewAdapter.notifyDataSetChanged();
                         mRecyclerView.setAdapter(mReviewAdapter);
                         Log.d(LOG_TAG, "Completed loading movie videos");
@@ -91,9 +97,9 @@ public class MovieReviewsFragment extends Fragment {
 
                     @Override
                     public void onNext(MovieReviewListModel movieReviewListModel) {
-                        reviewModelArrayList = new ArrayList<>();
+                        reviewList = new ArrayList<>();
                         for (int i = 0; i < movieReviewListModel.getResults().size(); i++) {
-                            reviewModelArrayList.add(movieReviewListModel.getResults().get(i));
+                            reviewList.add(movieReviewListModel.getResults().get(i));
                             Log.d(LOG_TAG, movieReviewListModel.getResults().get(i).getContent());
                         }
                     }
@@ -105,5 +111,11 @@ public class MovieReviewsFragment extends Fragment {
     public void onPause() {
         super.onPause();
         reviewSubscription.unsubscribe();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(Utility.EXTRA_REVIEW, reviewList);
     }
 }

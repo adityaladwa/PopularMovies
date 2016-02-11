@@ -14,6 +14,7 @@ public class Utility {
     public static final String EXTRA_RESULT_MODEL = "extra_result_model";
     public static final String EXTRA_MOVIE = "extra_movie";
     public static final String EXTRA_VIDEO = "extra_video";
+    public static final String EXTRA_REVIEW = "extra_review";
     public static final String EXTRA_TRAILER_FRAGMENT = "extra_video_fragment";
     public static final String EXTRA_REVIEW_FRAGMENT = "extra_review_fragment";
 
