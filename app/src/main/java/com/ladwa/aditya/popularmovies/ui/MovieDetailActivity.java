@@ -1,10 +1,12 @@
 package com.ladwa.aditya.popularmovies.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -39,13 +41,11 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_movie_detail);
         setSupportActionBar(toolbar);
 
+
         model = getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
 
-
-
-        viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager(),model));
+        viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager(), model));
         tabLayout.setupWithViewPager(viewPager);
-
 
 
     }
