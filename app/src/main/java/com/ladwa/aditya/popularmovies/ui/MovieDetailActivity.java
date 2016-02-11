@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
+import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.ui.adapter.MovieDetailsPagerAdapter;
 import com.ladwa.aditya.popularmovies.ui.fragments.MovieDetailActivityFragment;
+import com.ladwa.aditya.popularmovies.util.Utility;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +28,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @Bind(R.id.tabs)
     TabLayout tabLayout;
 
+    MovieResultListModel.ResultModel model;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         //Setup ViewPage and Tabs
         viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+
+        model = getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
 
     }
 
