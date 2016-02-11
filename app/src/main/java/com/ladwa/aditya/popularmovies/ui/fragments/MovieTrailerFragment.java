@@ -14,6 +14,7 @@ import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.MovieVideoListModel;
+import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class MovieTrailerFragment extends Fragment {
 
     private ArrayList<MovieVideoListModel> mVideoList;
     private LinearLayoutManager linearLayoutManager;
+    private RecyclerViewMoviesAdapter moviesAdapter;
 
 
     @Bind(R.id.recycler_view_movie_trailer)

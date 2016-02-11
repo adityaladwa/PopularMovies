@@ -62,7 +62,6 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
         mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
     }
 
     @Override
