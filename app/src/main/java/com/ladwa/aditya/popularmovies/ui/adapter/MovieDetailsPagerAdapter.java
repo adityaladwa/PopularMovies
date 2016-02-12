@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
-import com.ladwa.aditya.popularmovies.ui.fragments.MovieDetailActivityFragment;
+import com.ladwa.aditya.popularmovies.ui.fragments.DetailFragment;
 import com.ladwa.aditya.popularmovies.ui.fragments.ReviewsFragment;
 import com.ladwa.aditya.popularmovies.ui.fragments.TrailerFragment;
 import com.ladwa.aditya.popularmovies.util.Utility;
@@ -32,7 +32,7 @@ public class MovieDetailsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                MovieDetailActivityFragment detailActivityFragment = new MovieDetailActivityFragment();
+                DetailFragment detailActivityFragment = new DetailFragment();
                 Bundle arg = new Bundle();
                 arg.putParcelable(Utility.EXTRA_DETAIL_FRAGMENT, resultModel);
                 detailActivityFragment.setArguments(arg);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MovieDetailActivityFragment">
+    <declare-styleable name="DetailFragment">
         <attr name="sharedTransition" format="boolean"></attr>
     </declare-styleable>
 </resources>

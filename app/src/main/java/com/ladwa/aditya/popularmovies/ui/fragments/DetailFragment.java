@@ -20,9 +20,9 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MovieDetailActivityFragment extends Fragment {
+public class DetailFragment extends Fragment {
 
-    private static final String LOG_TAG = MovieDetailActivityFragment.class.getSimpleName();
+    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
     @Bind(R.id.imageposter)
     ImageView imgPoster;
@@ -35,7 +35,7 @@ public class MovieDetailActivityFragment extends Fragment {
     MovieResultListModel.ResultModel model;
 
 
-    public MovieDetailActivityFragment() {
+    public DetailFragment() {
     }
 
 
