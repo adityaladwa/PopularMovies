@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
@@ -53,6 +54,7 @@ public class MainActivityFragment extends Fragment {
     private ActionBar mActionBar;
     private int mOrientation;
     private RecyclerViewMoviesAdapter.MovieOnClickHandler movieOnClickHandler;
+    private boolean multiPane = false;
 
 
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -67,6 +69,12 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
         mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
+
+        if (getActivity().findViewById(R.id.multipan) != null) {
+            multiPane = true;
+            Toast.makeText(getActivity(), "TwoPane", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -77,14 +85,24 @@ public class MainActivityFragment extends Fragment {
         //Check if orientation is Landscape or portrate
         mOrientation = getActivity().getResources().getConfiguration().orientation;
 
+
         movieOnClickHandler = new RecyclerViewMoviesAdapter.MovieOnClickHandler() {
 
             @Override
             public void onClick(RecyclerViewMoviesAdapter.MoviesViewHolder moviesViewHolder, MovieResultListModel.ResultModel model, RecyclerViewMoviesAdapter.MoviesViewHolder holder) {
-                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-                intent.putExtra(Utility.EXTRA_RESULT_MODEL, model);
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
-                ActivityCompat.startActivity(getActivity(), intent, activityOptionsCompat.toBundle());
+                if (!multiPane) {
+                    Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                    intent.putExtra(Utility.EXTRA_RESULT_MODEL, model);
+                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
+                    ActivityCompat.startActivity(getActivity(), intent, activityOptionsCompat.toBundle());
+                } else {
+                    Fragment fragment = new MovieDetailMainFragment();
+                    Bundle arg = new Bundle();
+                    arg.putParcelable(Utility.EXTRA_RESULT_MODEL, model);
+                    fragment.setArguments(arg);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_movie_detail, fragment).commit();
+                }
+
             }
         };
 

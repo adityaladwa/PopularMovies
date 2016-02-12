@@ -32,9 +32,7 @@ public class MovieDetailActivityFragment extends Fragment {
     TextView tvRating;
     @Bind(R.id.plot)
     TextView tvPlot;
-    ImageView imgBackdrop;
     MovieResultListModel.ResultModel model;
-    private onFragmentInteraction mListener;
 
 
     public MovieDetailActivityFragment() {
@@ -45,10 +43,6 @@ public class MovieDetailActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
-        mListener = (onFragmentInteraction) getActivity();
-        mListener.setActionBarTitle(model.getOriginalTitle());
-        mListener.setBackdropImage(Utility.URL_IMAGE_BACKDROP_BASE + model.getBackdropUrl());
-
     }
 
 
@@ -58,10 +52,11 @@ public class MovieDetailActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
 
-
-        imgBackdrop = (ImageView) getActivity().findViewById(R.id.toolbar_image_backdrop);
-
         model = getActivity().getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
+
+        if (model == null)
+            model = this.getArguments().getParcelable(Utility.EXTRA_DETAIL_FRAGMENT);
+
         String url = Utility.URL_IMAGE_BASE + model.getPosterUrl();
         //  tvTitle.setText(model.getOriginalTitle());
         tvReleaseDate.setText(String.format(getString(R.string.release_date), model.getReleaseDate()));
@@ -78,9 +73,4 @@ public class MovieDetailActivityFragment extends Fragment {
     }
 
 
-    public interface onFragmentInteraction {
-        void setActionBarTitle(String title);
-
-        void setBackdropImage(String backdropUrl);
-    }
 }
