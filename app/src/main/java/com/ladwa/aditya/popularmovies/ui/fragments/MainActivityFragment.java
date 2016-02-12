@@ -96,7 +96,7 @@ public class MainActivityFragment extends Fragment {
                     ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
                     ActivityCompat.startActivity(getActivity(), intent, activityOptionsCompat.toBundle());
                 } else {
-                    Fragment fragment = new MovieDetailMainFragment();
+                    Fragment fragment = new DetaiActivitylFragment();
                     Bundle arg = new Bundle();
                     arg.putParcelable(Utility.EXTRA_RESULT_MODEL, model);
                     fragment.setArguments(arg);

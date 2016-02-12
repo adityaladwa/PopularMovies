@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Aditya on 12-Feb-16.
  */
-public class MovieDetailMainFragment extends Fragment {
+public class DetaiActivitylFragment extends Fragment {
 
     ImageView imgPoster;
 
@@ -34,7 +34,7 @@ public class MovieDetailMainFragment extends Fragment {
     private boolean twoPane = false;
 
 
-    public MovieDetailMainFragment() {
+    public DetaiActivitylFragment() {
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MovieDetailMainFragment extends Fragment {
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        Glide.with(MovieDetailMainFragment.this)
+        Glide.with(DetaiActivitylFragment.this)
                 .load(Utility.URL_IMAGE_BACKDROP_BASE + model.getBackdropUrl())
                 .error(R.drawable.poster)
                 .centerCrop()

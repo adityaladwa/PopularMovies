@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.fragments.MovieTrailerFragment">
+    tools:context=".ui.fragments.TrailerFragment">
 
 </android.support.v7.widget.RecyclerView>
