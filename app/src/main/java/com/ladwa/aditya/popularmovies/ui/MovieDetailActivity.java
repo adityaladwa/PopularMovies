@@ -42,6 +42,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         setSupportActionBar(toolbar);
 
 
+
+
+
         model = getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
 
         viewPager.setAdapter(new MovieDetailsPagerAdapter(getSupportFragmentManager(), model));
