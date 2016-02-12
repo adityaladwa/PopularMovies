@@ -1,9 +1,7 @@
 package com.ladwa.aditya.popularmovies.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.github.florent37.glidepalette.BitmapPalette;
 import com.github.florent37.glidepalette.GlidePalette;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel.ResultModel;
-import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
 import java.util.ArrayList;
@@ -31,11 +27,14 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
     private ArrayList<ResultModel> mresultListModel;
     private Context mContext;
+    private MovieOnClickHandler movieOnClickHandler;
 
 
-    public RecyclerViewMoviesAdapter(Context context, ArrayList<ResultModel> model) {
+    public RecyclerViewMoviesAdapter(Context context, ArrayList<ResultModel> model, MovieOnClickHandler clickHandler) {
         this.mresultListModel = model;
-        mContext = context;
+        this.mContext = context;
+        this.movieOnClickHandler = clickHandler;
+
     }
 
     @Override
@@ -69,6 +68,9 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
         return mresultListModel.size();
     }
 
+    public interface MovieOnClickHandler {
+        void onClick(MoviesViewHolder moviesViewHolder, ResultModel model, MoviesViewHolder holder);
+    }
 
     public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.imageview_poster)
@@ -80,14 +82,14 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
             super(itemView);
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
+
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(mContext, MovieDetailActivity.class);
-            Log.d("Clicked ", mresultListModel.get(getAdapterPosition()).getTitle());
-            intent.putExtra(Utility.EXTRA_RESULT_MODEL, mresultListModel.get(getAdapterPosition()));
-            mContext.startActivity(intent);
+            ResultModel resultModel = mresultListModel.get(getAdapterPosition());
+            movieOnClickHandler.onClick(this, resultModel, this);
+
         }
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="500"
+    android:transitionOrdering="together">
+
+    <slide android:slideEdge="top">
+        <targets>
+            <target android:targetId="@id/appbar"></target>
+        </targets>
+    </slide>
+
+
+    <slide android:slideEdge="bottom">
+        <targets>
+            <target android:targetId="@id/nested_view"></target>
+        </targets>
+    </slide>
+
+</transitionSet>

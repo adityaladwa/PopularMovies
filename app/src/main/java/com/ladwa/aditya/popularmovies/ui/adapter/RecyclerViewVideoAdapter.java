@@ -59,7 +59,10 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
 
     @Override
     public int getItemCount() {
-        return mVideoList.size();
+        if (mVideoList != null)
+            return mVideoList.size();
+        else
+            return 0;
     }
 
     public class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -1,7 +1,10 @@
 package com.ladwa.aditya.popularmovies.ui.fragments;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,7 @@ import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
+import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
 import com.ladwa.aditya.popularmovies.util.Utility;
 
@@ -48,6 +52,7 @@ public class MainActivityFragment extends Fragment {
     private Subscription movieSubscription;
     private ActionBar mActionBar;
     private int mOrientation;
+    private RecyclerViewMoviesAdapter.MovieOnClickHandler movieOnClickHandler;
 
 
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -72,6 +77,17 @@ public class MainActivityFragment extends Fragment {
         //Check if orientation is Landscape or portrate
         mOrientation = getActivity().getResources().getConfiguration().orientation;
 
+        movieOnClickHandler = new RecyclerViewMoviesAdapter.MovieOnClickHandler() {
+
+            @Override
+            public void onClick(RecyclerViewMoviesAdapter.MoviesViewHolder moviesViewHolder, MovieResultListModel.ResultModel model, RecyclerViewMoviesAdapter.MoviesViewHolder holder) {
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(Utility.EXTRA_RESULT_MODEL, model);
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
+                ActivityCompat.startActivity(getActivity(), intent, activityOptionsCompat.toBundle());
+            }
+        };
+
         //Create the layout manager based on orientation
         if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
             mlayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -88,7 +104,7 @@ public class MainActivityFragment extends Fragment {
         //Restore saved instance
         if (savedInstanceState != null && savedInstanceState.containsKey(Utility.EXTRA_MOVIE)) {
             mPosterList = savedInstanceState.getParcelableArrayList(Utility.EXTRA_MOVIE);
-            moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList);
+            moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList, movieOnClickHandler);
             moviesAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(moviesAdapter);
         }
@@ -111,7 +127,7 @@ public class MainActivityFragment extends Fragment {
                 .subscribe(new Observer<MovieResultListModel>() {
                     @Override
                     public void onCompleted() {
-                        moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList);
+                        moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList, movieOnClickHandler);
                         moviesAdapter.notifyDataSetChanged();
                         mRecyclerView.setAdapter(moviesAdapter);
                         Log.d(TAG, "Completed");
@@ -169,6 +185,5 @@ public class MainActivityFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(Utility.EXTRA_MOVIE, mPosterList);
     }
-
 
 }
