@@ -7,4 +7,5 @@
     <string name="rating">Rating \n %1$s</string>
 
     <string name="transition_name_detail_movie">transition_movie</string>
+    <string name="action_share">Share</string>
 </resources>

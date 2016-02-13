@@ -31,8 +31,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_movie_detail);
         setSupportActionBar(toolbar);
 
-
     }
-
 
 }
