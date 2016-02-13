@@ -1,6 +1,7 @@
 package com.ladwa.aditya.popularmovies.data.api;
 
 
+import com.facebook.stetho.okhttp.StethoInterceptor;
 import com.ladwa.aditya.popularmovies.util.Utility;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -23,6 +24,8 @@ public class ServiceGenerator {
 
 
     public static <C> C createService(Class<C> serviceClass) {
+        httpClient.networkInterceptors().add(new StethoInterceptor());
+
         Retrofit retrofit = builder
                 .client(httpClient)
                 .build();
