@@ -1,14 +1,18 @@
 package com.ladwa.aditya.popularmovies.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,6 +45,7 @@ public class TrailerFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerViewVideoAdapter videoAdapter;
     private MovieResultListModel.ResultModel resultModel;
+    private ShareActionProvider shareActionProvider = null;
 
 
     @Bind(R.id.recycler_view_movie_trailer)
@@ -122,11 +127,19 @@ public class TrailerFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_trailer_fragment, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_share_trailer);
+
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String url = Utility.YOUTUBE_PLAYER_URL_BASE + mVideoList.get(0).getKey();
+        intent.putExtra(Intent.EXTRA_TEXT, url);
+        shareActionProvider.setShareIntent(intent);
     }
 
     @Override
@@ -134,4 +147,6 @@ public class TrailerFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(Utility.EXTRA_VIDEO, mVideoList);
     }
+
+
 }
