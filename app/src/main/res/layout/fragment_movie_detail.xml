@@ -57,12 +57,16 @@
                         android:textSize="@dimen/text_size"
                         android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/start_button"
+                    <com.like.LikeButton
+                        android:id="@+id/star_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@android:drawable/star_on" />
+                        app:anim_scale_factor="3"
+                        app:dots_primary_color="@color/colorAccent"
+                        app:dots_secondary_color="@color/colorPrimary"
+                        app:icon_size="25dp"
+                        app:icon_type="star" />
                 </LinearLayout>
 
 

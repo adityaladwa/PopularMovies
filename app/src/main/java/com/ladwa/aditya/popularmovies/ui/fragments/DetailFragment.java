@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +13,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.util.Utility;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailFragment extends Fragment implements View.OnClickListener {
+public class DetailFragment extends Fragment {
 
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
@@ -33,8 +34,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     TextView tvRating;
     @Bind(R.id.plot)
     TextView tvPlot;
-    @Bind(R.id.start_button)
-    ImageButton starButton;
+    @Bind(R.id.star_button)
+    LikeButton starButton;
     MovieResultListModel.ResultModel model;
 
 
@@ -72,17 +73,20 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgPoster);
 
-        starButton.setOnClickListener(this);
+        starButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+            }
+        });
 
         return view;
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.start_button) {
-
-            starButton.setImageResource(android.R.drawable.star_on);
-        }
-    }
 }
