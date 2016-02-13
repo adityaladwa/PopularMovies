@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements View.OnClickListener {
 
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
@@ -32,6 +33,8 @@ public class DetailFragment extends Fragment {
     TextView tvRating;
     @Bind(R.id.plot)
     TextView tvPlot;
+    @Bind(R.id.start_button)
+    ImageButton starButton;
     MovieResultListModel.ResultModel model;
 
 
@@ -69,8 +72,17 @@ public class DetailFragment extends Fragment {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgPoster);
 
+        starButton.setOnClickListener(this);
+
         return view;
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.start_button) {
+
+            starButton.setImageResource(android.R.drawable.star_on);
+        }
+    }
 }
