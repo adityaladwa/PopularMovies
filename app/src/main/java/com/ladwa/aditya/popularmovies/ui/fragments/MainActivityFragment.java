@@ -132,7 +132,6 @@ public class MainActivityFragment extends Fragment {
         //Call movie API
         callMovieApi(Utility.SORT_POPULAR_DESC);
 
-
         return view;
     }
 
@@ -176,9 +175,7 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         switch (id) {
             case R.id.action_sort_popular:
                 callMovieApi(Utility.SORT_POPULAR_DESC);

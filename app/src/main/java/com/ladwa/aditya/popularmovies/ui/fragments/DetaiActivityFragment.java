@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,16 @@ public class DetaiActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Toolbar toolbar2 = (Toolbar) getActivity().findViewById(R.id.toolbar_movie_detail);
         imgPoster = (ImageView) getActivity().findViewById(R.id.toolbar_image_backdrop);
-        if (getActivity().findViewById(R.id.multipan) != null)
+        if (getActivity().findViewById(R.id.multipan) != null) {
             twoPane = true;
+            toolbar2.setTitle(model.getOriginalTitle());
 
+        }
+        if (!twoPane)
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(model.getOriginalTitle());
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(model.getOriginalTitle());
 
         try {
             setViewpagerAndBackDrop();
