@@ -69,7 +69,6 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
         mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        getActivity().supportInvalidateOptionsMenu();
 
         if (getActivity().findViewById(R.id.multipan) != null) {
             multiPane = true;
@@ -170,6 +169,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.menu_main_fragment, menu);
 
     }

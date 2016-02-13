@@ -56,7 +56,7 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
-
+        getActivity().supportInvalidateOptionsMenu();
         model = getActivity().getIntent().getParcelableExtra(Utility.EXTRA_RESULT_MODEL);
 
         if (model == null)
@@ -90,5 +90,9 @@ public class DetailFragment extends Fragment {
     }
 
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
 
+    }
 }

@@ -55,10 +55,12 @@ public class TrailerFragment extends Fragment {
     public TrailerFragment() {
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Nullable
@@ -66,10 +68,9 @@ public class TrailerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_trailer, container, false);
         ButterKnife.bind(this, view);
-
         Bundle bundle = getArguments();
         MovieResultListModel.ResultModel resultModel = bundle.getParcelable(Utility.EXTRA_TRAILER_FRAGMENT);
-
+        getActivity().supportInvalidateOptionsMenu();
         String id = null;
         if (resultModel != null) {
             id = resultModel.getMovieId();
@@ -124,23 +125,38 @@ public class TrailerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         videoSubscription.unsubscribe();
+        getActivity().supportInvalidateOptionsMenu();
+
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.action_share_trailer);
+
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.menu_trailer_fragment, menu);
-
         MenuItem menuItem = menu.findItem(R.id.action_share_trailer);
+        String url = "No video found";
 
         shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        String url = Utility.YOUTUBE_PLAYER_URL_BASE + mVideoList.get(0).getKey();
+        try {
+            url = Utility.YOUTUBE_PLAYER_URL_BASE + mVideoList.get(0).getKey();
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+
+        }
+
         intent.putExtra(Intent.EXTRA_TEXT, url);
         shareActionProvider.setShareIntent(intent);
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
