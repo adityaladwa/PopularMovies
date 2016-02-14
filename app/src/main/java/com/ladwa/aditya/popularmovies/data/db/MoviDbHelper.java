@@ -22,7 +22,7 @@ public class MoviDbHelper extends SQLiteOpenHelper {
             MovieContract.Movie.COLUMN_PLOT + " TEXT NOT NULL, " +
             MovieContract.Movie.COLUMN_RATING + " TEXT NOT NULL, " +
             MovieContract.Movie.COLUMN_RELEASE_DATE + " TEXT NOT NULL, " +
-            MovieContract.Movie.COLUMN_MOVIE_ID + " TEXT NOT NULL " +
+            MovieContract.Movie.COLUMN_MOVIE_ID + " TEXT NOT NULL, " +
             "UNIQUE (" + MovieContract.Movie.COLUMN_MOVIE_ID + ") ON CONFLICT REPLACE);";
 
     public static final String SQL_CREATE_VIDEO_TABLE = "CREATE TABLE " + MovieContract.Video.TABLE_NAME + " (" +
@@ -36,7 +36,7 @@ public class MoviDbHelper extends SQLiteOpenHelper {
             " UNIQUE (" + MovieContract.Video.COLUMN_VIDEO_ID + ") ON CONFLICT REPLACE);";
 
     public static final String SQL_CREATE_REVIEW_TABLE = "CREATE TABLE " + MovieContract.Review.TABLE_NAME + " (" +
-            MovieContract.Review._ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            MovieContract.Review._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             MovieContract.Review.COLUMN_MOVIE_ID + " TEXT NOT NULL, " +
             MovieContract.Review.COLUMN_REVIEW_ID + " TEXT NOT NULL, " +
             MovieContract.Review.COLUMN_AUTHOR + " TEXT NOT NULL, " +
