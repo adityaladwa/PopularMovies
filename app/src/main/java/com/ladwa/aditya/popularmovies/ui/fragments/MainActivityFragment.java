@@ -68,6 +68,7 @@ public class MainActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
+        getActivity().supportInvalidateOptionsMenu();
         mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
         if (getActivity().findViewById(R.id.multipan) != null) {
@@ -174,6 +175,13 @@ public class MainActivityFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (!multiPane) {
+            menu.clear();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
