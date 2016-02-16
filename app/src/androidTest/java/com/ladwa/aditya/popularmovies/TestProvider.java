@@ -53,10 +53,6 @@ public class TestProvider extends AndroidTestCase {
 
         Log.d(LOG_TAG, type);
 
-        type = mContext.getContentResolver().getType(MovieContract.Video.buildVideowithId("201"));
-        assertEquals(MovieContract.Video.CONTENT_ITEM_TYPE, type);
-
-        Log.d(LOG_TAG, type);
 
     }
 }

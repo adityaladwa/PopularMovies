@@ -41,25 +41,7 @@ public class MovieContract {
         }
     }
 
-    public static final class Video implements BaseColumns {
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_VIDEO).build();
 
-        public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_VIDEO;
-        public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_VIDEO;
-
-        public static final String TABLE_NAME = "video";
-        public static final String _ID = "vid";
-        public static final String COLUMN_MOVIE_ID = "movie_id";
-        public static final String COLUMN_VIDEO_URL = "key";
-        public static final String COLUMN_VIDEO_NAME = "name";
-        public static final String COLUMN_VIDEO_ID = "video_id";
-
-        public static Uri buildVideowithId(String id) {
-            return CONTENT_URI.buildUpon().appendPath(id).build();
-        }
-    }
 
     public static final class Review implements BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_REVIEW).build();
