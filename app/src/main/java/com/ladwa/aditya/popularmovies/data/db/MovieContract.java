@@ -34,6 +34,11 @@ public class MovieContract {
         public static final String COLUMN_RATING = "rating";
         public static final String COLUMN_RELEASE_DATE = "release_date";
         public static final String COLUMN_MOVIE_ID = "movie_id";
+
+
+        public static Uri buildMoviewithId(String id) {
+            return CONTENT_URI.buildUpon().appendPath(id).build();
+        }
     }
 
     public static final class Video implements BaseColumns {
@@ -50,6 +55,10 @@ public class MovieContract {
         public static final String COLUMN_VIDEO_URL = "key";
         public static final String COLUMN_VIDEO_NAME = "name";
         public static final String COLUMN_VIDEO_ID = "video_id";
+
+        public static Uri buildVideowithId(String id) {
+            return CONTENT_URI.buildUpon().appendPath(id).build();
+        }
     }
 
     public static final class Review implements BaseColumns {
@@ -67,5 +76,9 @@ public class MovieContract {
         public static final String COLUMN_AUTHOR = "author";
         public static final String COLUMN_CONTENT = "content";
         public static final String COLUMN_URL = "url";
+
+        public static Uri buildReviewwithId(String id) {
+            return CONTENT_URI.buildUpon().appendPath(id).build();
+        }
     }
 }

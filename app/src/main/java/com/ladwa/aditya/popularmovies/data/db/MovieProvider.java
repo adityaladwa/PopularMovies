@@ -15,9 +15,14 @@ public class MovieProvider extends ContentProvider {
     public static final int MOVIE = 100;
     public static final int MOVIE_WITH_ID = 101;
 
-    public static final int VIDEO_WITH_ID = 200;
+    public static final int VIDEO_WITH_MOVIE_ID = 200;
+    public static final int VIDEO_WITH_VIDEO_ID = 201;
 
-    public static final int REVIEW_WITH_ID = 300;
+    public static final int REVIEW_WITH_MOVIE_ID = 300;
+    public static final int REVIEW_WITH_VIDEO_ID = 301;
+
+    private static final UriMatcher sUriMatcher = buildUriMatcher();
+    private MoviDbHelper mOpenHelper;
 
 
     private static UriMatcher buildUriMatcher() {
@@ -28,9 +33,11 @@ public class MovieProvider extends ContentProvider {
         matcher.addURI(authority, MovieContract.PATH_MOVIE, MOVIE);
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*", MOVIE_WITH_ID);
 
-        matcher.addURI(authority, MovieContract.PATH_VIDEO + "/*", VIDEO_WITH_ID);
+        matcher.addURI(authority, MovieContract.PATH_VIDEO + "/*", VIDEO_WITH_MOVIE_ID);
+        matcher.addURI(authority, MovieContract.PATH_VIDEO + "/*", VIDEO_WITH_VIDEO_ID);
 
-        matcher.addURI(authority, MovieContract.PATH_REVIEW + "/*", REVIEW_WITH_ID);
+        matcher.addURI(authority, MovieContract.PATH_REVIEW + "/*", REVIEW_WITH_MOVIE_ID);
+        matcher.addURI(authority, MovieContract.PATH_REVIEW + "/*", REVIEW_WITH_VIDEO_ID);
 
         return matcher;
     }
@@ -38,7 +45,8 @@ public class MovieProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        return false;
+        mOpenHelper = new MoviDbHelper(getContext());
+        return true;
     }
 
     @Nullable
@@ -50,7 +58,24 @@ public class MovieProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(Uri uri) {
-        return null;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case MOVIE:
+                return MovieContract.Movie.CONTENT_TYPE;
+            case MOVIE_WITH_ID:
+                return MovieContract.Movie.CONTENT_ITEM_TYPE;
+            case VIDEO_WITH_MOVIE_ID:
+                return MovieContract.Video.CONTENT_ITEM_TYPE;
+            case VIDEO_WITH_VIDEO_ID:
+                return MovieContract.Video.CONTENT_TYPE;
+            case REVIEW_WITH_MOVIE_ID:
+                return MovieContract.Review.CONTENT_ITEM_TYPE;
+            case REVIEW_WITH_VIDEO_ID:
+                return MovieContract.Review.CONTENT_TYPE;
+
+            default:
+                throw new UnsupportedOperationException("Unknown Uri: " + uri);
+        }
     }
 
     @Nullable
