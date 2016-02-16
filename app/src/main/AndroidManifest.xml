@@ -16,6 +16,10 @@
             android:name="com.ladwa.aditya.popularmovies.util.GlideConfig"
             android:value="GlideModule" />
 
+        <provider
+            android:name=".data.db.MovieProvider"
+            android:authorities="com.ladwa.aditya.popularmovies" />
+
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
