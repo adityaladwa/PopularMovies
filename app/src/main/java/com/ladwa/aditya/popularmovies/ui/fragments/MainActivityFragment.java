@@ -180,6 +180,7 @@ public class MainActivityFragment extends Fragment {
         super.onPrepareOptionsMenu(menu);
         if (!multiPane) {
             menu.clear();
+            mActionBar.setTitle(getString(R.string.app_name));
         }
     }
 
