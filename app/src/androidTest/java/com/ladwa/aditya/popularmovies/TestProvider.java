@@ -53,7 +53,7 @@ public class TestProvider extends AndroidTestCase {
         };
 
 
-        Cursor c = mContext.getContentResolver().query(
+        Cursor c1 = mContext.getContentResolver().query(
                 MovieContract.Movie.CONTENT_URI,
                 null,
                 null,
@@ -61,6 +61,15 @@ public class TestProvider extends AndroidTestCase {
                 null
         );
 
+        Cursor c = mContext.getContentResolver().query(
+                MovieContract.Movie.buildMoviewithId("281952"),
+                null,
+                null,
+                null,
+                null
+        );
+
+        Log.d(LOG_TAG, String.valueOf(c1.getCount()));
 
         while (c.moveToNext()) {
             c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_TITLE));

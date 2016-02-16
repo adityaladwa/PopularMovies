@@ -1,6 +1,7 @@
 package com.ladwa.aditya.popularmovies.data.db;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -28,7 +29,6 @@ public class MovieProvider extends ContentProvider {
         matcher.addURI(authority, MovieContract.PATH_MOVIE, MOVIE);
         matcher.addURI(authority, MovieContract.PATH_MOVIE + "/*", MOVIE_WITH_ID);
 
-
         return matcher;
     }
 
@@ -52,12 +52,22 @@ public class MovieProvider extends ContentProvider {
                         selection,
                         selectionArgs,
                         null,
-                        null, sortOrder
+                        null,
+                        sortOrder
                 );
                 break;
             case MOVIE_WITH_ID:
-                retCursor = null;
 
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        MovieContract.Movie.TABLE_NAME,
+                        projection,
+                        MovieContract.Movie.COLUMN_MOVIE_ID + " = '" + ContentUris.parseId(uri) + "'",
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown Uri: " + uri);
         }
