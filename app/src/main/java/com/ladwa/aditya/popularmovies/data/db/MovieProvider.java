@@ -42,7 +42,27 @@ public class MovieProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
+        Cursor retCursor;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case MOVIE:
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        MovieContract.Movie.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null, sortOrder
+                );
+                break;
+            case MOVIE_WITH_ID:
+                retCursor = null;
+
+            default:
+                throw new UnsupportedOperationException("Unknown Uri: " + uri);
+        }
+        retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return retCursor;
     }
 
     @Nullable

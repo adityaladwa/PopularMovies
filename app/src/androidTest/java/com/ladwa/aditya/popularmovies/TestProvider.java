@@ -1,6 +1,7 @@
 package com.ladwa.aditya.popularmovies;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.util.Log;
@@ -18,7 +19,7 @@ public class TestProvider extends AndroidTestCase {
         mContext.deleteDatabase(MoviDbHelper.DATABASE_NAME);
     }
 
-    public void testInsertDb() throws Throwable {
+    public void testInsertProvider() throws Throwable {
         SQLiteDatabase db = new MoviDbHelper(mContext).getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -38,6 +39,41 @@ public class TestProvider extends AndroidTestCase {
         assertTrue(rowId != -1);
         Log.d(LOG_TAG, "New row id: " + rowId);
 
+
+        String[] colums = {
+                MovieContract.Movie._ID,
+                MovieContract.Movie.COLUMN_TITLE,
+                MovieContract.Movie.COLUMN_POSTER_URL,
+                MovieContract.Movie.COLUMN_BACK_DROP_URL,
+                MovieContract.Movie.COLUMN_ORIGINAL_TITLE,
+                MovieContract.Movie.COLUMN_PLOT,
+                MovieContract.Movie.COLUMN_RATING,
+                MovieContract.Movie.COLUMN_RELEASE_DATE,
+                MovieContract.Movie.COLUMN_MOVIE_ID
+        };
+
+
+        Cursor c = mContext.getContentResolver().query(
+                MovieContract.Movie.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
+
+
+        while (c.moveToNext()) {
+            c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_TITLE));
+            c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_POSTER_URL));
+            c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_BACK_DROP_URL));
+            c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_ORIGINAL_TITLE));
+            c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_PLOT));
+            String id = c.getString(c.getColumnIndex(MovieContract.Movie.COLUMN_MOVIE_ID));
+            Log.d(LOG_TAG, " Movie id " + id);
+
+            assertEquals("281952", id);
+
+        }
     }
 
     public void testGetType() throws Throwable {
