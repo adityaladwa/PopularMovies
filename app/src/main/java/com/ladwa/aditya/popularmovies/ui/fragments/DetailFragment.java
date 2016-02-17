@@ -1,17 +1,23 @@
 package com.ladwa.aditya.popularmovies.ui.fragments;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ladwa.aditya.popularmovies.R;
+import com.ladwa.aditya.popularmovies.data.db.MovieContract;
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.util.Utility;
 import com.like.LikeButton;
@@ -38,6 +44,8 @@ public class DetailFragment extends Fragment {
     @Bind(R.id.star_button)
     LikeButton starButton;
     MovieResultListModel.ResultModel model;
+
+    private ContentValues values;
 
 
     public DetailFragment() {
@@ -74,15 +82,41 @@ public class DetailFragment extends Fragment {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgPoster);
 
+        values = new ContentValues();
+
+        values.put(MovieContract.Movie.COLUMN_TITLE, model.getTitle());
+        values.put(MovieContract.Movie.COLUMN_POSTER_URL, model.getPosterUrl());
+        values.put(MovieContract.Movie.COLUMN_BACK_DROP_URL, model.getBackdropUrl());
+        values.put(MovieContract.Movie.COLUMN_ORIGINAL_TITLE, model.getOriginalTitle());
+        values.put(MovieContract.Movie.COLUMN_PLOT, model.getPlot());
+        values.put(MovieContract.Movie.COLUMN_RATING, model.getRating());
+        values.put(MovieContract.Movie.COLUMN_RELEASE_DATE, model.getReleaseDate());
+        values.put(MovieContract.Movie.COLUMN_MOVIE_ID, model.getMovieId());
         starButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
 
+
+                Uri rowUri;
+                rowUri = getContext().getContentResolver().insert(MovieContract.Movie.CONTENT_URI, values);
+
+                long rowId = ContentUris.parseId(rowUri);
+                if (rowId > 0)
+                    Toast.makeText(getContext(), "Favourite  " + model.getTitle(), Toast.LENGTH_SHORT).show();
+
+                Log.d(LOG_TAG, "New row id inserted via provider: " + rowId);
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
 
+
+                int rowDeleted = getContext().getContentResolver().delete(MovieContract.Movie.CONTENT_URI, MovieContract.Movie.COLUMN_MOVIE_ID + "= ?", new String[]{model.getMovieId()});
+
+                if (rowDeleted > 0)
+                    Toast.makeText(getContext(), "Removed  " + model.getTitle() + " from favourite", Toast.LENGTH_SHORT).show();
+
+                Log.d(LOG_TAG, "Row deleted: " + rowDeleted);
             }
         });
 
