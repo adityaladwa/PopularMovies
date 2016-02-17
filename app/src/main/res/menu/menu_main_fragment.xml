@@ -9,7 +9,13 @@
 
     <item
         android:id="@+id/action_sort_rated"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:title="Top Rated"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_fav"
+        android:orderInCategory="3"
+        android:title="Favourite"
         app:showAsAction="never" />
 </menu>

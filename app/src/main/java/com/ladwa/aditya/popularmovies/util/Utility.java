@@ -23,4 +23,6 @@ public class Utility {
 
     public static final String YOUTUBE_THUMBNAIL_URL_BASE = "http://img.youtube.com/vi/";
     public static final String YOUTUBE_PLAYER_URL_BASE = "https://www.youtube.com/watch?v=";
+
+    public static final String PREF_CHOICE = "choice";
 }

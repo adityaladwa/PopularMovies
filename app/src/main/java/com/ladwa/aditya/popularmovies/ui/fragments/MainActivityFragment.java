@@ -1,6 +1,8 @@
 package com.ladwa.aditya.popularmovies.ui.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -55,6 +57,10 @@ public class MainActivityFragment extends Fragment {
     private int mOrientation;
     private RecyclerViewMoviesAdapter.MovieOnClickHandler movieOnClickHandler;
     private boolean multiPane = false;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private int choice;
+    private MenuInflater menuInflater;
 
 
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -75,6 +81,19 @@ public class MainActivityFragment extends Fragment {
             multiPane = true;
             Toast.makeText(getActivity(), "TwoPane", Toast.LENGTH_SHORT).show();
         }
+
+        Log.d(TAG, "Choice onActivity = " + choice);
+        switch (choice) {
+            case 0:
+                mActionBar.setTitle(getString(R.string.app_name));
+                break;
+            case 1:
+                mActionBar.setTitle(getString(R.string.top_rated_movies));
+                break;
+            case 2:
+                break;
+
+        }
     }
 
     @Override
@@ -84,6 +103,10 @@ public class MainActivityFragment extends Fragment {
         ButterKnife.bind(this, view);
         //Check if orientation is Landscape or portrate
         mOrientation = getActivity().getResources().getConfiguration().orientation;
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        choice = sharedPreferences.getInt(Utility.PREF_CHOICE, 0);
 
 
         movieOnClickHandler = new RecyclerViewMoviesAdapter.MovieOnClickHandler() {
@@ -128,9 +151,20 @@ public class MainActivityFragment extends Fragment {
         }
         //Create a REST service endpoint
         movieApi = ServiceGenerator.createService(MovieApi.class);
-
+        Log.d(TAG, "Choice = " + choice);
         //Call movie API
-        callMovieApi(Utility.SORT_POPULAR_DESC);
+        switch (choice) {
+            case 0:
+                callMovieApi(Utility.SORT_POPULAR_DESC);
+                break;
+            case 1:
+                callMovieApi(Utility.SORT_RATING_DESC);
+                break;
+            case 2:
+                break;
+
+        }
+
 
         return view;
     }
@@ -170,6 +204,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menuInflater = inflater;
         menu.clear();
         inflater.inflate(R.menu.menu_main_fragment, menu);
 
@@ -179,7 +214,19 @@ public class MainActivityFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (!multiPane) {
-            mActionBar.setTitle(getString(R.string.app_name));
+            menu.clear();
+            menuInflater.inflate(R.menu.menu_main_fragment, menu);
+            switch (choice) {
+                case 0:
+                    mActionBar.setTitle(getString(R.string.app_name));
+                    break;
+                case 1:
+                    mActionBar.setTitle(getString(R.string.top_rated_movies));
+                    break;
+                case 2:
+                    break;
+
+            }
 
         }
     }
@@ -191,10 +238,18 @@ public class MainActivityFragment extends Fragment {
             case R.id.action_sort_popular:
                 callMovieApi(Utility.SORT_POPULAR_DESC);
                 mActionBar.setTitle(getString(R.string.app_name));
+                editor.putInt(Utility.PREF_CHOICE, 0);
+                editor.commit();
                 break;
             case R.id.action_sort_rated:
                 callMovieApi(Utility.SORT_RATING_DESC);
                 mActionBar.setTitle(getString(R.string.top_rated_movies));
+                editor.putInt(Utility.PREF_CHOICE, 1);
+                editor.commit();
+                break;
+            case R.id.action_fav:
+                editor.putInt(Utility.PREF_CHOICE, 2);
+                editor.commit();
                 break;
         }
         return super.onOptionsItemSelected(item);
