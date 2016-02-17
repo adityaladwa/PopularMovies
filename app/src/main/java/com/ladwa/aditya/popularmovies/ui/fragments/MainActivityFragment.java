@@ -179,8 +179,8 @@ public class MainActivityFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (!multiPane) {
-            menu.clear();
             mActionBar.setTitle(getString(R.string.app_name));
+
         }
     }
 
