@@ -1,8 +1,10 @@
 package com.ladwa.aditya.popularmovies;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
@@ -15,8 +17,20 @@ import com.ladwa.aditya.popularmovies.data.db.MovieContract;
 public class TestProvider extends AndroidTestCase {
     public static final String LOG_TAG = TestProvider.class.getSimpleName();
 
-    public void testDeleteDb() throws Throwable {
-        mContext.deleteDatabase(MoviDbHelper.DATABASE_NAME);
+    public void testDeleteAllRecords() throws Throwable {
+        mContext.getContentResolver().delete(MovieContract.Movie.CONTENT_URI,
+                null,
+                null
+        );
+
+        Cursor cursor = mContext.getContentResolver().query(MovieContract.Movie.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
+        assertEquals(cursor.getCount(), 0);
+        cursor.close();
     }
 
     public void testInsertProvider() throws Throwable {
@@ -33,11 +47,13 @@ public class TestProvider extends AndroidTestCase {
         values.put(MovieContract.Movie.COLUMN_RELEASE_DATE, "2015-12-25");
         values.put(MovieContract.Movie.COLUMN_MOVIE_ID, "281952");
 
-        long rowId;
-        rowId = db.insert(MovieContract.Movie.TABLE_NAME, null, values);
+        Uri rowUri;
+        rowUri = mContext.getContentResolver().insert(MovieContract.Movie.CONTENT_URI, values);
+        long rowId = ContentUris.parseId(rowUri);
 
-        assertTrue(rowId != -1);
-        Log.d(LOG_TAG, "New row id: " + rowId);
+        Log.d(LOG_TAG, "New row id inserted via provider: " + rowId);
+
+
 
 
         String[] colums = {

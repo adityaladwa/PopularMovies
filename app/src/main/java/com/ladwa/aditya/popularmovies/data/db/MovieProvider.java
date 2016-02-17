@@ -92,16 +92,56 @@ public class MovieProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        return null;
+
+        final int match = sUriMatcher.match(uri);
+        Uri retUri;
+        switch (match) {
+            case MOVIE:
+                long _id = mOpenHelper.getWritableDatabase().insert(MovieContract.Movie.TABLE_NAME, null, values);
+                if (_id > 0)
+                    retUri = MovieContract.Movie.buildMoviewithId(String.valueOf(_id));
+                else
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown Uri: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return retUri;
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        final int match = sUriMatcher.match(uri);
+        int rowsDeleted;
+        switch (match) {
+            case MOVIE:
+                rowsDeleted = mOpenHelper.getWritableDatabase().delete(MovieContract.Movie.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown Uri: " + uri);
+        }
+        if (null == selection || 0 != rowsDeleted) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsDeleted;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
+        final int match = sUriMatcher.match(uri);
+        int rowsUpdated;
+
+        switch (match) {
+            case MOVIE_WITH_ID:
+                rowsUpdated = mOpenHelper.getWritableDatabase().update(MovieContract.Movie.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown Uri: " + uri);
+        }
+        if (0 != rowsUpdated) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsUpdated;
     }
 }
