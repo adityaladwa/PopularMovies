@@ -2,6 +2,7 @@ package com.ladwa.aditya.popularmovies.ui.fragments;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -92,6 +93,16 @@ public class DetailFragment extends Fragment {
         values.put(MovieContract.Movie.COLUMN_RATING, model.getRating());
         values.put(MovieContract.Movie.COLUMN_RELEASE_DATE, model.getReleaseDate());
         values.put(MovieContract.Movie.COLUMN_MOVIE_ID, model.getMovieId());
+
+        Cursor c = getContext().getContentResolver().query(MovieContract.Movie.CONTENT_URI,
+                new String[]{MovieContract.Movie.COLUMN_MOVIE_ID},
+                MovieContract.Movie.COLUMN_MOVIE_ID + "= ? ",
+                new String[]{model.getMovieId()},
+                null);
+
+        if (c.getCount() > 0) {
+            starButton.setLiked(true);
+        }
 
 
         starButton.setOnLikeListener(new OnLikeListener() {
