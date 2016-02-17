@@ -214,7 +214,6 @@ public class MainActivityFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (!multiPane) {
-            menu.clear();
             menuInflater.inflate(R.menu.menu_main_fragment, menu);
             switch (choice) {
                 case 0:
