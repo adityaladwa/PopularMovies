@@ -133,7 +133,7 @@ public class MovieProvider extends ContentProvider {
         int rowsUpdated;
 
         switch (match) {
-            case MOVIE_WITH_ID:
+            case MOVIE:
                 rowsUpdated = mOpenHelper.getWritableDatabase().update(MovieContract.Movie.TABLE_NAME, values, selection, selectionArgs);
                 break;
             default:

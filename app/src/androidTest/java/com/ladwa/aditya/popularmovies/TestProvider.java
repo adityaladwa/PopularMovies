@@ -53,8 +53,13 @@ public class TestProvider extends AndroidTestCase {
 
         Log.d(LOG_TAG, "New row id inserted via provider: " + rowId);
 
+        ContentValues values1 = new ContentValues(values);
+        values1.put(MovieContract.Movie.COLUMN_MOVIE_ID, "281953");
+        values1.put(MovieContract.Movie.COLUMN_TITLE, "The Revenant1");
 
+        int count = mContext.getContentResolver().update(MovieContract.Movie.CONTENT_URI, values1, MovieContract.Movie.COLUMN_MOVIE_ID + "= ?", new String[]{"281952"});
 
+        assertEquals(count, 1);
 
         String[] colums = {
                 MovieContract.Movie._ID,
