@@ -92,30 +92,24 @@ public class DetailFragment extends Fragment {
         values.put(MovieContract.Movie.COLUMN_RATING, model.getRating());
         values.put(MovieContract.Movie.COLUMN_RELEASE_DATE, model.getReleaseDate());
         values.put(MovieContract.Movie.COLUMN_MOVIE_ID, model.getMovieId());
+
+
         starButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-
-
                 Uri rowUri;
                 rowUri = getContext().getContentResolver().insert(MovieContract.Movie.CONTENT_URI, values);
-
                 long rowId = ContentUris.parseId(rowUri);
                 if (rowId > 0)
                     Toast.makeText(getContext(), "Favourite  " + model.getTitle(), Toast.LENGTH_SHORT).show();
-
                 Log.d(LOG_TAG, "New row id inserted via provider: " + rowId);
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-
-
                 int rowDeleted = getContext().getContentResolver().delete(MovieContract.Movie.CONTENT_URI, MovieContract.Movie.COLUMN_MOVIE_ID + "= ?", new String[]{model.getMovieId()});
-
                 if (rowDeleted > 0)
                     Toast.makeText(getContext(), "Removed  " + model.getTitle() + " from favourite", Toast.LENGTH_SHORT).show();
-
                 Log.d(LOG_TAG, "Row deleted: " + rowDeleted);
             }
         });
