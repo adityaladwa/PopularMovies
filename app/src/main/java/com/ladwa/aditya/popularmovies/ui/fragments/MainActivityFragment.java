@@ -110,7 +110,6 @@ public class MainActivityFragment extends Fragment {
 
 
         movieOnClickHandler = new RecyclerViewMoviesAdapter.MovieOnClickHandler() {
-
             @Override
             public void onClick(RecyclerViewMoviesAdapter.MoviesViewHolder moviesViewHolder, MovieResultListModel.ResultModel model, RecyclerViewMoviesAdapter.MoviesViewHolder holder) {
                 if (!multiPane) {
