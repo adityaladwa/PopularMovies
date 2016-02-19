@@ -49,7 +49,7 @@ public class MovieResultListModel {
         @SerializedName("id")
         private String movieId;
 
-        protected ResultModel(Parcel in) {
+        public ResultModel(Parcel in) {
             title = in.readString();
             posterUrl = in.readString();
             backdropUrl = in.readString();
@@ -58,6 +58,9 @@ public class MovieResultListModel {
             rating = in.readString();
             releaseDate = in.readString();
             movieId = in.readString();
+        }
+
+        public ResultModel() {
         }
 
         public static final Creator<ResultModel> CREATOR = new Creator<ResultModel>() {

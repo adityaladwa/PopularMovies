@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.ladwa.aditya.popularmovies.R;
 import com.ladwa.aditya.popularmovies.data.api.MovieApi;
 import com.ladwa.aditya.popularmovies.data.api.ServiceGenerator;
+import com.ladwa.aditya.popularmovies.data.db.MovieContract;
 import com.ladwa.aditya.popularmovies.data.model.MovieResultListModel;
 import com.ladwa.aditya.popularmovies.ui.MovieDetailActivity;
 import com.ladwa.aditya.popularmovies.ui.adapter.RecyclerViewMoviesAdapter;
@@ -91,6 +93,7 @@ public class MainActivityFragment extends Fragment {
                 mActionBar.setTitle(getString(R.string.top_rated_movies));
                 break;
             case 2:
+                mActionBar.setTitle(getString(R.string.fav));
                 break;
 
         }
@@ -160,12 +163,39 @@ public class MainActivityFragment extends Fragment {
                 callMovieApi(Utility.SORT_RATING_DESC);
                 break;
             case 2:
+                showfav();
                 break;
 
         }
 
 
         return view;
+    }
+
+    private void showfav() {
+        Log.d(TAG, "Enter");
+        Cursor cursor = getContext().getContentResolver().query(MovieContract.Movie.CONTENT_URI, null, null, null, null);
+        Log.d(TAG, String.valueOf(cursor.getColumnIndex(MovieContract.Movie.COLUMN_ORIGINAL_TITLE)));
+        mPosterList = new ArrayList<>();
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                MovieResultListModel.ResultModel resultModel = new MovieResultListModel.ResultModel();
+
+                resultModel.setTitle(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_TITLE)));
+                resultModel.setPosterUrl(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_POSTER_URL)));
+                resultModel.setBackdropUrl(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_BACK_DROP_URL)));
+                resultModel.setOriginalTitle(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_ORIGINAL_TITLE)));
+                resultModel.setPlot(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_PLOT)));
+                resultModel.setRating(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_RATING)));
+                resultModel.setReleaseDate(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_RELEASE_DATE)));
+                resultModel.setMovieId(cursor.getString(cursor.getColumnIndex(MovieContract.Movie.COLUMN_MOVIE_ID)));
+
+                mPosterList.add(resultModel);
+                moviesAdapter = new RecyclerViewMoviesAdapter(getActivity(), mPosterList, movieOnClickHandler);
+                moviesAdapter.notifyDataSetChanged();
+                mRecyclerView.setAdapter(moviesAdapter);
+            }
+        }
     }
 
 
@@ -223,6 +253,7 @@ public class MainActivityFragment extends Fragment {
                     mActionBar.setTitle(getString(R.string.top_rated_movies));
                     break;
                 case 2:
+                    mActionBar.setTitle(getString(R.string.fav));
                     break;
 
             }
@@ -247,6 +278,8 @@ public class MainActivityFragment extends Fragment {
                 editor.commit();
                 break;
             case R.id.action_fav:
+                showfav();
+                mActionBar.setTitle(getString(R.string.fav));
                 editor.putInt(Utility.PREF_CHOICE, 2);
                 editor.commit();
                 break;
@@ -257,7 +290,8 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        movieSubscription.unsubscribe();
+        if (movieSubscription != null)
+            movieSubscription.unsubscribe();
     }
 
     @Override

@@ -51,9 +51,9 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
         Glide.with(holder.imageView.getContext())
                 .load(url)
                 .listener(GlidePalette.with(url)
-                        .use(GlidePalette.Profile.VIBRANT)
-                        .intoBackground(holder.textViewTitle)
-                        .crossfade(true)
+                                .use(GlidePalette.Profile.VIBRANT)
+                                .intoBackground(holder.textViewTitle)
+                                .crossfade(true)
                 )
                 .error(R.drawable.poster)
                 .centerCrop()
@@ -65,7 +65,10 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return mresultListModel.size();
+        if (mresultListModel != null)
+            return mresultListModel.size();
+        else
+            return 0;
     }
 
     public interface MovieOnClickHandler {
@@ -89,7 +92,6 @@ public class RecyclerViewMoviesAdapter extends RecyclerView.Adapter<RecyclerView
         public void onClick(View v) {
             ResultModel resultModel = mresultListModel.get(getAdapterPosition());
             movieOnClickHandler.onClick(this, resultModel, this);
-
         }
     }
 }
