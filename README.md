@@ -19,3 +19,8 @@ An app to keep track with movies
 ```bash
  <string name="api_key">Your API key</string>
 ```
+
+![Alt text](/screenshot1.png?raw=true)
+![Alt text](/screenshot2.png?raw=true)
+![Alt text](/screenshot3.png?raw=true)
+![Alt text](/screenshot4.png?raw=true)
