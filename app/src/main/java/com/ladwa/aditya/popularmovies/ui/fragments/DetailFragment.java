@@ -85,6 +85,11 @@ public class DetailFragment extends Fragment {
 
         values = new ContentValues();
 
+        if (model.getPosterUrl() == null)
+            model.setPosterUrl("No url found");
+        if (model.getBackdropUrl() == null)
+            model.setBackdropUrl("No url found");
+
         values.put(MovieContract.Movie.COLUMN_TITLE, model.getTitle());
         values.put(MovieContract.Movie.COLUMN_POSTER_URL, model.getPosterUrl());
         values.put(MovieContract.Movie.COLUMN_BACK_DROP_URL, model.getBackdropUrl());

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -221,6 +222,7 @@ public class MainActivityFragment extends Fragment {
                     @Override
                     public void onNext(MovieResultListModel movieResultListModel) {
                         mPosterList = new ArrayList<>();
+                        Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_SHORT).show();
                         for (int i = 0; i < movieResultListModel.getResults().size(); i++) {
                             mPosterList.add(movieResultListModel.getResults().get(i));
                             Log.d(TAG, Utility.URL_IMAGE_BASE + movieResultListModel.getResults().get(i).getPosterUrl());
