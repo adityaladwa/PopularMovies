@@ -14,7 +14,8 @@ An app to keep track with movies
 
 
 # How to use this
+### Add your API key
 
 ```bash
-Add your API key <string name="api_key">Your API key</string>
+ <string name="api_key">Your API key</string>
 ```
