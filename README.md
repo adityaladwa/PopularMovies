@@ -21,7 +21,7 @@ An app to keep track with movies
  <string name="api_key">Your API key</string>
 ```
 
-![Alt text](/screenshot1.png?raw=true)
-![Alt text](/screenshot2.png?raw=true)
-![Alt text](/screenshot3.png?raw=true)
-![Alt text](/screenshot4.png?raw=true)
+![Phone Screenshot](/screenshot1.png?raw=true)
+![Phone Screenshot](/screenshot2.png?raw=true)
+![Phone Screenshot](/screenshot3.png?raw=true)
+![Tablet Screenshot](/screenshot4.png?raw=true)
