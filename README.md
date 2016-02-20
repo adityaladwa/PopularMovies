@@ -10,6 +10,7 @@ An app to keep track with movies
 * Retrofit
 * OkHttp
 * RxJava
+* RxAndroid
 * Stetho
 
 
