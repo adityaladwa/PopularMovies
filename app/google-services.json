@@ -1,0 +1,104 @@
+{
+  "project_info": {
+    "project_number": "323070258302",
+    "firebase_url": "https://admob-app-id-4549041197.firebaseio.com",
+    "project_id": "admob-app-id-4549041197",
+    "storage_bucket": "admob-app-id-4549041197.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323070258302:android:c7475b8c31b3df82",
+        "android_client_info": {
+          "package_name": "com.ladwa.aditya.dslab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323070258302-7bmktugic43ovp0dbi23kep4f5r3fat5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiY_wTBICv09lXsOTSxTrOj-eagma_GZM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323070258302:android:b60f2f1169f0f615",
+        "android_client_info": {
+          "package_name": "com.ladwa.aditya.ssoslab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323070258302-7bmktugic43ovp0dbi23kep4f5r3fat5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiY_wTBICv09lXsOTSxTrOj-eagma_GZM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323070258302:android:7dd31f81798e7646",
+        "android_client_info": {
+          "package_name": "com.ladwa.aditya.popularmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323070258302-7bmktugic43ovp0dbi23kep4f5r3fat5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiY_wTBICv09lXsOTSxTrOj-eagma_GZM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
